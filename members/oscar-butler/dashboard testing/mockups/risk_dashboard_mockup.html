@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BIF Risk Dashboard: mockups</title>
+<style>
+  :root{
+    --navy:#0B2160; --navy2:#14357F; --gold:#D4AA3A; --teal:#1E8070;
+    --beige:#F1EFEA; --tile:#E8EDF6; --ink:#0B2160; --body:#33415C; --muted:#6B7A90;
+    --rule:#D9DEE7; --long:#2F5BB7; --short:#C98A1A; --third:#2E9C8A;
+    --ok:#2E7D32; --watch:#B26A00; --breach:#B3261E;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#C9CED8;font-family:Arial,Helvetica,sans-serif;color:var(--body)}
+  .intro{max-width:210mm;margin:10mm auto 0;background:#fff;padding:8mm 10mm;border-left:4px solid var(--gold)}
+  .intro h1{color:var(--navy);margin:0 0 4px;font-size:20px}
+  .intro p,.intro li{font-size:13px;line-height:1.45;margin:4px 0}
+  .page{width:210mm;height:297mm;margin:10mm auto;background:#fff;position:relative;padding:12mm 15mm 16mm;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+  .mocklabel{position:absolute;top:0;left:0;background:var(--gold);color:var(--navy);font-size:10px;font-weight:bold;padding:3px 8px;letter-spacing:.04em}
+  .hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:6mm}
+  .logo{display:flex;align-items:center;gap:6px;font-family:Georgia,serif;color:#111}
+  .logo b{font-size:22px;letter-spacing:-2px}
+  .logo span{font-size:6.5px;line-height:1.25;border-left:1px solid #999;padding-left:5px;letter-spacing:.12em}
+  .month{font-size:11px;color:var(--muted)}
+  .kicker{color:var(--teal);font-weight:bold;font-size:11px;letter-spacing:.04em;text-transform:uppercase;margin:0 0 2px}
+  h1.title{color:var(--navy);font-size:34px;margin:0 0 4px;letter-spacing:-.5px}
+  .byline{font-size:10.5px;color:var(--muted);margin-bottom:5mm}
+  .band{background:linear-gradient(180deg,var(--navy),var(--navy2));color:#fff;margin:-2mm -15mm 4mm;padding:6mm 15mm 5mm;border-radius:0 0 14px 0;position:relative}
+  .band h1{font-size:32px;margin:2px 0 6px;letter-spacing:-.5px}
+  .band .kicker{color:#C9D3EA}
+  .band .byline{color:#C9D3EA;margin:0}
+  .band:after{content:"";position:absolute;left:15mm;bottom:3mm;width:30mm;height:2px;background:var(--gold)}
+  h2{color:var(--navy);font-size:15px;margin:4mm 0 2mm}
+  .note{font-size:8.5px;color:var(--muted);line-height:1.35;margin:1.5mm 0 2mm}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);margin-bottom:1mm}
+  .kpis.eight{grid-template-columns:repeat(4,1fr);row-gap:2px}
+  .kpi{background:var(--tile);padding:3mm 4mm;min-height:22mm}
+  .kpi:first-child{background:var(--navy);color:#fff}
+  .kpi .l{font-size:10px}
+  .kpi .v{font-size:25px;font-weight:bold;color:var(--navy);margin-top:2mm}
+  .kpi:first-child .v{color:#fff}
+  .kpi .d{font-size:9px;color:var(--muted);margin-top:1mm}
+  .kpi:first-child .d{color:#C9D3EA}
+  .kpis.eight .kpi{min-height:19mm;padding:2.5mm 3.5mm}
+  .kpis.eight .kpi .v{font-size:20px;margin-top:1mm}
+  table{width:100%;border-collapse:collapse;font-size:10px}
+  th{background:var(--navy);color:#fff;text-align:left;padding:2.2mm 2mm;font-weight:bold}
+  th.n,td.n{text-align:right}
+  td{padding:1.7mm 2mm;border-bottom:1px solid var(--rule);vertical-align:middle}
+  .badge{display:inline-block;font-size:8.5px;font-weight:bold;padding:1px 6px;border-radius:9px;border:1px solid}
+  .b-ok{color:var(--ok);border-color:var(--ok)} .b-watch{color:var(--watch);border-color:var(--watch)}
+  .b-breach{color:#fff;background:var(--breach);border-color:var(--breach)} .b-na{color:var(--muted);border-color:var(--muted)}
+  .box{background:var(--beige);padding:3mm 4mm;position:relative;margin-bottom:3mm}
+  .box.blue{background:var(--tile)}
+  .box h3{margin:0 0 1.5mm;color:var(--navy);font-size:12.5px}
+  .box p{margin:0;font-size:10.5px;line-height:1.4}
+  .ph{color:var(--muted)}
+  .tag{position:absolute;top:2mm;right:2mm;font-size:7.5px;font-weight:bold;letter-spacing:.06em;padding:1px 5px;border-radius:2px}
+  .tag.auto{background:var(--teal);color:#fff}
+  .tag.ed{background:var(--gold);color:var(--navy)}
+  .tag.mix{background:#fff;color:var(--teal);border:1px solid var(--teal)}
+  .rel{position:relative}
+  .rel>.tag{top:0;right:0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
+  .chart{background:#fff}
+  .chart svg{display:block;width:100%;height:auto}
+  .chart-title{font-size:11px;font-weight:bold;color:var(--navy);margin-bottom:1mm}
+  .chart-sub{font-size:8.5px;color:var(--muted);margin-bottom:1mm}
+  .legend{font-size:8.5px;color:var(--body);display:flex;gap:10px;margin-bottom:1mm}
+  .legend i{display:inline-block;width:10px;height:3px;vertical-align:middle;margin-right:4px}
+  .legend i.sq{height:8px;width:8px;border-radius:2px}
+  .minibar{position:relative;height:9px;width:100%;background:#F4F6FA}
+  .minibar .g{position:absolute;left:0;top:0;bottom:0;background:#BFCCE6}
+  .minibar .nt{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--navy)}
+  .foot{position:absolute;left:15mm;right:15mm;bottom:8mm;display:flex;justify-content:space-between;font-size:8.5px;color:var(--navy)}
+  .foot b{font-size:10px}
+  ul.facts{margin:0;padding-left:14px;font-size:10px;line-height:1.45}
+  .scen{display:grid;grid-template-columns:1.05fr 1fr;gap:3mm;margin-bottom:3mm}
+  .impact{background:var(--tile);padding:3mm 4mm}
+  .impact .l{font-size:9.5px;font-weight:bold;color:var(--navy)}
+  .impact .v{font-size:27px;font-weight:bold;color:var(--navy)}
+  .impact .d{font-size:9.5px;color:var(--muted)}
+  svg text{font-family:Arial,Helvetica,sans-serif}
+  @page{size:A4;margin:0} @media print{body{background:#fff}.intro{display:none}.page{margin:0;box-shadow:none;height:296mm;page-break-after:always}}
+</style>
+</head>
+<body>
+
+<div class="intro">
+  <h1>Risk dashboard: visual mockups</h1>
+  <p><b>All numbers here are invented placeholders.</b> Layout and style follow the BIF Monthly Research Review template.</p>
+  <ul>
+    <li><b>A–B</b>: the risk team's existing slots in the monthly report (p.15 and p.16), filled automatically from <code>dashboard_v2.py</code>.</li>
+    <li><b>C–E</b>: a separate 3-page <b>Risk Dashboard</b> owned by the risk team, in the same visual style. It can be an internal pack or a report appendix.</li>
+    <li>Tags show who writes each block: <span class="tag auto" style="position:static">AUTO</span> generated by code, <span class="tag ed" style="position:static">EDITORIAL</span> written by the risk team, <span class="tag mix" style="position:static">AUTO + EDIT</span> auto-drafted facts that the team edits.</li>
+  </ul>
+</div>
+
+<!-- ============================ A: report p15 ============================ -->
+<div class="page">
+  <div class="mocklabel">MOCKUP A · REPORT p.15 · AUTO-FILLED</div>
+  <div class="hdr"><div class="logo"><b>BF</b><span>Bristol<br>Investment<br>Fund</span></div><div class="month">NOVEMBER 2026</div></div>
+  <div class="kicker">Fund breakdown / risk</div>
+  <h1 class="title">Risk across the book</h1>
+  <div class="byline">Risk team [authors] &nbsp;|&nbsp; 100-150 words plus tables</div>
+
+  <div class="rel"><span class="tag auto">AUTO</span>
+  <div class="kpis">
+    <div class="kpi"><div class="l">Gross exposure</div><div class="v">142.3%</div><div class="d">+6.1 pp vs Oct</div></div>
+    <div class="kpi"><div class="l">Net exposure</div><div class="v">38.6%</div><div class="d">−4.2 pp vs Oct</div></div>
+    <div class="kpi"><div class="l">Month drawdown</div><div class="v">2.1%</div><div class="d">trough 18 Nov</div></div>
+    <div class="kpi"><div class="l">60-day volatility</div><div class="v">N/A</div><div class="d">41 of 60 daily returns</div></div>
+  </div></div>
+  <div class="note">Exposure = % NAV. Drawdown = positive decline magnitude. Volatility annualised; N/A before 60 valid daily returns. Ex-ante (holdings-based) vol: 11.8%.</div>
+
+  <div class="rel"><span class="tag mix" style="top:-4.5mm">AUTO + EDIT</span>
+  <table>
+    <tr><th>Team</th><th class="n">Gross %</th><th class="n">Net %</th><th style="width:26%">Gross ▬ / net ┃</th><th class="n">Largest abs. %</th><th>Priority / material issue</th></tr>
+    <tbody id="teamRows"></tbody>
+  </table></div>
+  <div class="note">Team exposures use team NAV. Largest = absolute position value / team NAV. Priority set by the risk team; the issue column is drafted from flags (e.g. limit proximity, crowded short) and edited.</div>
+
+  <div class="grid2" style="margin-top:2mm">
+    <div class="box"><span class="tag mix">AUTO + EDIT</span>
+      <h3>What sector labels can hide</h3>
+      <ul class="facts">
+        <li>Market beta 0.62 → beta-adjusted net 24.1% vs 38.6% headline.</li>
+        <li>Momentum tilt +0.24; 3 teams long the same AI-capex theme.</li>
+        <li>USD exposure 61% of gross; no FX hedge.</li>
+        <li>Largest short: 4.1 days to cover, 9% SI of float.</li>
+      </ul>
+    </div>
+    <div class="box blue"><span class="tag auto">AUTO</span>
+      <h3>Mandate checks and exceptions</h3>
+      <table style="font-size:9.5px">
+        <tbody id="limitsSmall"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="note">Methods: valuation 16:30 London close, 30 Nov 2026; coverage 100% of positions; Bloomberg PORT (S07). Gross = (long + |short|) / NAV. Net = (long − |short|) / NAV.</div>
+  <div class="foot"><span>SIMULATED PORTFOLIO &nbsp;|&nbsp; Fund breakdown / risk</span><b>15</b></div>
+</div>
+
+<!-- ============================ B: report p16 ============================ -->
+<div class="page">
+  <div class="mocklabel">MOCKUP B · REPORT p.16 · SCENARIOS</div>
+  <div class="hdr"><div class="logo"><b>BF</b><span>Bristol<br>Investment<br>Fund</span></div><div class="month">NOVEMBER 2026</div></div>
+  <div class="kicker">Fund breakdown / scenarios</div>
+  <h1 class="title">Putting the risks to the test</h1>
+  <div class="byline">Risk team [authors] &nbsp;|&nbsp; Two explicit scenarios and practical follow-up</div>
+
+  <div class="box"><span class="tag ed">EDITORIAL</span>
+    <h3>SCENARIO A &nbsp;/&nbsp; US 10y yield +100 bp in one month, Bloomberg factor shocks</h3>
+    <p class="ph">[Assumptions and transmission to each stock. State what is held constant, the coverage and the principal limitation.]</p>
+  </div>
+  <div class="scen">
+    <div class="impact rel"><span class="tag auto">AUTO</span><div class="l">FUND IMPACT</div><div class="v">−3.4% NAV</div><div class="d">−£101,800 &nbsp;·&nbsp; 100% coverage</div>
+      <div class="chart" id="scenA" style="background:transparent;margin-top:2mm"></div></div>
+    <div class="rel"><span class="tag mix">AUTO + EDIT</span><h3 style="color:var(--navy);font-size:12.5px;margin:0 0 1.5mm">Most affected teams</h3>
+      <ul class="facts"><li>TMT −1.6 pp: long-duration growth longs (3 names).</li><li>Consumer −0.7 pp.</li><li>FIG +0.4 pp offsets: bank longs gain on NIM.</li></ul>
+      <p class="ph" style="font-size:10px;margin-top:2mm">[Limitation / response]</p></div>
+  </div>
+
+  <div class="box"><span class="tag ed">EDITORIAL</span>
+    <h3>SCENARIO B &nbsp;/&nbsp; Rerun of Mar 2020 (20 trading days), historical returns</h3>
+    <p class="ph">[Assumptions and transmission to each stock. State what is held constant, the coverage and the principal limitation.]</p>
+  </div>
+  <div class="scen">
+    <div class="impact rel"><span class="tag auto">AUTO</span><div class="l">FUND IMPACT</div><div class="v">−7.9% NAV</div><div class="d">−£236,500 &nbsp;·&nbsp; 96% coverage (2 IPOs proxied)</div>
+      <div class="chart" id="scenB" style="background:transparent;margin-top:2mm"></div></div>
+    <div class="rel"><span class="tag mix">AUTO + EDIT</span><h3 style="color:var(--navy);font-size:12.5px;margin:0 0 1.5mm">Most affected teams</h3>
+      <ul class="facts"><li>Energy &amp; Utilities −2.3 pp.</li><li>Industrials −1.9 pp.</li><li>Shorts recover 3.1 pp of the long-book loss.</li></ul>
+      <p class="ph" style="font-size:10px;margin-top:2mm">[Limitation / response]</p></div>
+  </div>
+  <div class="note">Approximate P&amp;L = Σ(signed market value × assumed stock return). Scenarios are neither forecasts nor maximum possible losses.</div>
+
+  <h2>What the teams should do with this research</h2>
+  <div class="rel"><span class="tag ed" style="top:-4.5mm">EDITORIAL</span>
+  <table>
+    <tr><th>Position / team</th><th>Research recommendation</th><th>PM response / owner / due date</th></tr>
+    <tr><td class="ph">[ ]</td><td class="ph">[Investigate / monitor / reconsider sizing]</td><td class="ph">[Accept / monitor / decline + reason]</td></tr>
+    <tr><td class="ph">[ ]</td><td class="ph">[ ]</td><td class="ph">[ ]</td></tr>
+  </table></div>
+  <div class="foot"><span>SIMULATED PORTFOLIO &nbsp;|&nbsp; Fund breakdown / scenarios</span><b>16</b></div>
+</div>
+
+<!-- ============================ C: dashboard p1 ============================ -->
+<div class="page">
+  <div class="mocklabel">MOCKUP C · RISK DASHBOARD p.1 · OVERVIEW</div>
+  <div class="hdr"><div class="logo"><b>BF</b><span>Bristol<br>Investment<br>Fund</span></div><div class="month">AS OF 30 NOV 2026</div></div>
+  <div class="band">
+    <div class="kicker">Risk dashboard</div>
+    <h1>Risk at a glance</h1>
+    <div class="byline">Risk team [authors] &nbsp;|&nbsp; Data: Bloomberg PORT + prices, run 30 Nov 2026 18:05 &nbsp;|&nbsp; Base GBP</div>
+  </div>
+
+  <div class="rel"><span class="tag auto" style="top:-4mm">AUTO</span>
+  <div class="kpis eight">
+    <div class="kpi"><div class="l">NAV</div><div class="v">£2.99m</div><div class="d">+1.4% MTD</div></div>
+    <div class="kpi"><div class="l">Gross / net</div><div class="v">142 / 39%</div><div class="d">+6.1 / −4.2 pp</div></div>
+    <div class="kpi"><div class="l">Beta-adj. net</div><div class="v">24.1%</div><div class="d">β 0.62 to MSCI World</div></div>
+    <div class="kpi"><div class="l">Ex-ante vol</div><div class="v">11.8%</div><div class="d">+0.9 pp</div></div>
+    <div class="kpi"><div class="l">1-day VaR 99</div><div class="v">1.84%</div><div class="d">£55,000 · hist. sim.</div></div>
+    <div class="kpi"><div class="l">1-day ES 99</div><div class="v">2.47%</div><div class="d">£73,900</div></div>
+    <div class="kpi"><div class="l">Drawdown</div><div class="v">−0.8%</div><div class="d">max −2.1% (18 Nov)</div></div>
+    <div class="kpi"><div class="l">Liquid in 1 day</div><div class="v">88%</div><div class="d">of gross, 20% ADV</div></div>
+  </div></div>
+
+  <div class="box" style="margin-top:3mm"><span class="tag ed">EDITORIAL</span>
+    <h3>[The headline behind the numbers]</h3>
+    <p class="ph">[80–120 words. What changed in the risk profile this month and why it matters. Auto-drafted prompts from the data: gross +6.1 pp (new TMT shorts); VaR99 up 0.21 pp; largest position nearing 10% cap.]</p>
+  </div>
+
+  <div class="grid2">
+    <div class="chart rel"><span class="tag auto">AUTO</span>
+      <div class="chart-title">Exposure since cycle start</div>
+      <div class="chart-sub">% NAV, daily</div>
+      <div class="legend"><span><i style="background:var(--long)"></i>Gross</span><span><i style="background:var(--short)"></i>Net</span><span><i style="background:var(--third)"></i>Beta-adj. net</span></div>
+      <div id="expHist"></div>
+    </div>
+    <div class="rel"><span class="tag auto">AUTO</span>
+      <div class="chart-title">Limits</div>
+      <div class="chart-sub">BIF risk policy · utilisation of limit</div>
+      <table style="font-size:9.5px"><tbody id="limitsBig"></tbody></table>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-top:3mm">
+    <div class="chart rel"><span class="tag auto">AUTO</span>
+      <div class="chart-title">Exposure by sector</div>
+      <div class="legend"><span><i class="sq" style="background:var(--long)"></i>Long</span><span><i class="sq" style="background:var(--short)"></i>Short</span></div>
+      <div id="sectorExp"></div>
+    </div>
+    <div class="chart rel"><span class="tag auto">AUTO</span>
+      <div class="chart-title">Exposure by country</div>
+      <div class="legend"><span><i class="sq" style="background:var(--long)"></i>Long</span><span><i class="sq" style="background:var(--short)"></i>Short</span></div>
+      <div id="countryExp"></div>
+    </div>
+  </div>
+  <div class="foot"><span>SIMULATED PORTFOLIO &nbsp;|&nbsp; Risk dashboard</span><b>R1</b></div>
+</div>
+
+<!-- ============================ D: dashboard p2 ============================ -->
+<div class="page">
+  <div class="mocklabel">MOCKUP D · RISK DASHBOARD p.2 · WHERE THE RISK SITS</div>
+  <div class="hdr"><div class="logo"><b>BF</b><span>Bristol<br>Investment<br>Fund</span></div><div class="month">AS OF 30 NOV 2026</div></div>
+  <div class="kicker">Risk dashboard / decomposition</div>
+  <h1 class="title">Where the risk sits</h1>
+  <div class="byline">Risk team [authors] &nbsp;|&nbsp; Covariance: 252 daily returns · Factors: 104 weekly returns</div>
+
+  <div class="grid2">
+    <div class="chart rel"><span class="tag auto">AUTO</span>
+      <div class="chart-title">Top 10 contributors to volatility</div>
+      <div class="chart-sub">Share of ex-ante vol, % (sums to 100 across all positions). Label = weight % NAV</div>
+      <div id="riskTop"></div>
+    </div>
+    <div class="chart rel"><span class="tag auto">AUTO</span>
+      <div class="chart-title">Risk share vs capital share, by team</div>
+      <div class="chart-sub">% of gross vs % of ex-ante vol</div>
+      <div class="legend"><span><i class="sq" style="background:#BFCCE6"></i>% of gross</span><span><i class="sq" style="background:var(--long)"></i>% of risk</span></div>
+      <div id="teamRisk"></div>
+    </div>
+  </div>
+
+  <div class="box" style="margin-top:3mm"><span class="tag ed">EDITORIAL</span>
+    <h3>[What is driving the risk]</h3>
+    <p class="ph">[60–90 words. E.g. TMT runs 18% of capital but 31% of risk; two names explain a quarter of fund vol.]</p>
+  </div>
+
+  <div class="grid2">
+    <div class="chart rel"><span class="tag auto">AUTO</span>
+      <div class="chart-title">Factor exposures</div>
+      <div class="chart-sub">Fund beta to MSCI World and to factor spreads (factor − MSCI World), 2y weekly. R² 0.71</div>
+      <div id="factors"></div>
+    </div>
+    <div class="chart rel"><span class="tag auto">AUTO</span>
+      <div class="chart-title">Liquidity: time to exit</div>
+      <div class="chart-sub">% of gross by days to liquidate at 20% of 20-day ADV</div>
+      <div id="liq"></div>
+      <div class="chart-title" style="margin-top:3mm">Slowest to exit</div>
+      <table style="font-size:9px"><tr><th>Position</th><th class="n">Days</th><th class="n">% ADV</th><th class="n">% NAV</th></tr><tbody id="liqRows"></tbody></table>
+    </div>
+  </div>
+
+  <div class="chart rel" style="margin-top:3mm"><span class="tag auto">AUTO</span>
+    <div class="chart-title">Concentration</div>
+    <div class="chart-sub">Top 5 = 34% of gross · Top 10 = 55% · Effective number of positions 21.4 (of 38)</div>
+  </div>
+  <div class="foot"><span>SIMULATED PORTFOLIO &nbsp;|&nbsp; Risk dashboard</span><b>R2</b></div>
+</div>
+
+<!-- ============================ E: dashboard p3 ============================ -->
+<div class="page">
+  <div class="mocklabel">MOCKUP E · RISK DASHBOARD p.3 · PERFORMANCE & TAILS</div>
+  <div class="hdr"><div class="logo"><b>BF</b><span>Bristol<br>Investment<br>Fund</span></div><div class="month">AS OF 30 NOV 2026</div></div>
+  <div class="kicker">Risk dashboard / outcomes</div>
+  <h1 class="title">Returns, drawdown and tails</h1>
+  <div class="byline">Risk team [authors] &nbsp;|&nbsp; P&amp;L rebuilt from end-of-day holdings; dividends excluded</div>
+
+  <div class="chart rel"><span class="tag auto">AUTO</span>
+    <div class="chart-title">BIF against the market</div>
+    <div class="chart-sub">Rebased to 100 at cycle start (1 Oct 2026)</div>
+    <div class="legend"><span><i style="background:var(--long)"></i>BIF</span><span><i style="background:#8A93A6"></i>MSCI World (GBP)</span></div>
+    <div id="cum"></div>
+  </div>
+  <div class="chart rel" style="margin-top:1mm"><span class="tag auto">AUTO</span>
+    <div class="chart-title">Drawdown</div>
+    <div class="chart-sub">% below previous peak</div>
+    <div id="dd"></div>
+  </div>
+
+  <div class="grid2" style="margin-top:3mm">
+    <div class="chart rel"><span class="tag auto">AUTO</span>
+      <div class="chart-title">Today's book through 3 years of history</div>
+      <div class="chart-sub">Daily P&amp;L, % NAV (historical simulation, 756 days)</div>
+      <div id="hist"></div>
+    </div>
+    <div class="chart rel"><span class="tag auto">AUTO</span>
+      <div class="chart-title">How the teams move together</div>
+      <div class="chart-sub">Correlation of team daily returns, 252 days</div>
+      <div id="corr"></div>
+    </div>
+  </div>
+
+  <div class="box" style="margin-top:3mm"><span class="tag ed">EDITORIAL</span>
+    <h3>[Reading the tails]</h3>
+    <p class="ph">[60–90 words. E.g. the worst simulated day is −3.9% (5 Aug 2024); VaR breaches this month: 0 of 21 days.]</p>
+  </div>
+  <div class="foot"><span>SIMULATED PORTFOLIO &nbsp;|&nbsp; Risk dashboard</span><b>R3</b></div>
+</div>
+
+<script>
+// ---------------------------------------------------------------- placeholder data
+let seed = 7; const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+const gauss = () => { let u = 0, v = 0; while (!u) u = rnd(); while (!v) v = rnd(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); };
+const C = { long:'#2F5BB7', short:'#C98A1A', third:'#2E9C8A', grey:'#8A93A6', light:'#BFCCE6',
+            ink:'#0B2160', body:'#33415C', muted:'#6B7A90', grid:'#E6E9EF', axis:'#B8C0CE' };
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, a, parent, text){ const e=document.createElementNS(NS,tag); for(const k in a) e.setAttribute(k,a[k]); if(text!==undefined) e.textContent=text; if(parent) parent.appendChild(e); return e; }
+function svg(id, w, h){ const s=el('svg',{viewBox:`0 0 ${w} ${h}`}); document.getElementById(id).appendChild(s); return s; }
+const tip = (e, t) => el('title', {}, e, t);
+const fmt = (v, d=1) => (v>0?'':'') + v.toFixed(d);
+
+const teams = ['FIG / Financials','Healthcare','Industrials','Consumer','Materials','Energy & Utilities','Special Situations','TMT'];
+const teamData = [
+  [128,42,9.8,'watch','Largest position near 10% cap'],
+  [96,51,7.2,'ok','No material change'],
+  [151,33,8.4,'ok','No material change'],
+  [139,12,6.9,'watch','Crowded short in apparel'],
+  [88,63,11.4,'breach','Single name above cap'],
+  [104,47,8.1,'ok','Oil beta 0.8'],
+  [72,18,12.6,'na','Unassessed: 2 new positions'],
+  [187,58,9.1,'watch','31% of fund risk on 18% capital'],
+];
+const badge = s => ({ok:'<span class="badge b-ok">✓ Low</span>',watch:'<span class="badge b-watch">● Monitor</span>',
+  breach:'<span class="badge b-breach">▲ High</span>',na:'<span class="badge b-na">? Unassessed</span>'})[s];
+document.getElementById('teamRows').innerHTML = teams.map((t,i)=>{ const [g,n,l,s,iss]=teamData[i];
+  return `<tr><td>${t}</td><td class="n">${g}</td><td class="n">${n}</td>
+  <td><div class="minibar" title="Gross ${g}%, net ${n}%"><div class="g" style="width:${g/200*100}%"></div><div class="nt" style="left:${n/200*100}%"></div></div></td>
+  <td class="n">${l.toFixed(1)}</td><td>${badge(s)} <span style="font-size:9px">${iss}</span></td></tr>`; }).join('');
+
+const limits = [
+  ['Gross exposure','% NAV',142.3,200,'ok'],['Net exposure','% NAV',38.6,80,'ok'],
+  ['Largest position','% NAV',9.2,10,'watch'],['Largest team position','% team NAV',11.4,10,'breach'],
+  ['Sector net','% NAV',21.0,30,'ok'],['1-day VaR 99','% NAV',1.84,3,'ok'],['Liquid in 5 days','% gross',97,90,'ok', true],
+];
+const st = s => ({ok:'<span class="badge b-ok">✓ OK</span>',watch:'<span class="badge b-watch">● Near</span>',breach:'<span class="badge b-breach">▲ Breach</span>'})[s];
+document.getElementById('limitsSmall').innerHTML = '<tr><th>Limit</th><th class="n">Actual</th><th class="n">Limit</th><th>Status</th></tr>' +
+  limits.slice(0,5).map(([n,u,v,lim,s,min])=>`<tr><td>${n}</td><td class="n">${v}</td><td class="n">${min?'≥':'≤'} ${lim}</td><td>${st(s)}</td></tr>`).join('');
+document.getElementById('limitsBig').innerHTML = limits.map(([n,u,v,lim,s,min])=>{
+  const pct = min ? Math.min(100, lim/v*100) : Math.min(100, v/lim*100);
+  const col = s==='breach'?'#B3261E':s==='watch'?'#B26A00':C.long;
+  return `<tr><td>${n}<div style="font-size:8px;color:${C.muted}">${u} · ${min?'min':'max'} ${lim}</div></td>
+  <td style="width:38%"><div class="minibar" title="${v} vs limit ${lim}"><div class="g" style="width:${pct}%;background:${col};opacity:.85"></div></div></td>
+  <td class="n">${v}</td><td>${st(s)}</td></tr>`; }).join('');
+
+// ---------------------------------------------------------------- chart helpers
+function axisY(s, x0, x1, y, lo, hi, ticks, f){
+  ticks.forEach(t => { const yy = y(t); el('line',{x1:x0,x2:x1,y1:yy,y2:yy,stroke:t===0?C.axis:C.grid,'stroke-width':1},s);
+    el('text',{x:x0-4,y:yy+3,'text-anchor':'end','font-size':9,fill:C.muted},s,f(t)); });
+}
+function lineChart(id, {series, labels, w=520, h=170, lo, hi, ticks, f=v=>v, area=false, endLabels=true}){
+  const s = svg(id, w, h), L=34, R=endLabels?92:8, T=6, B=18;
+  const x = i => L + i*(w-L-R)/(labels.length-1), y = v => T + (hi-v)/(hi-lo)*(h-T-B);
+  axisY(s, L, w-R, y, lo, hi, ticks, f);
+  labels.forEach((d,i)=>{ if(d.tick) el('text',{x:x(i),y:h-5,'text-anchor':i===0?'start':i===labels.length-1?'end':'middle','font-size':9,fill:C.muted},s,d.tick); });
+  series.forEach(se => {
+    const pts = se.data.map((v,i)=>`${x(i)},${y(v)}`).join(' ');
+    if(area) el('polygon',{points:`${x(0)},${y(0)} ${pts} ${x(se.data.length-1)},${y(0)}`,fill:se.color,opacity:.18},s);
+    el('polyline',{points:pts,fill:'none',stroke:se.color,'stroke-width':2,'stroke-dasharray':se.dash||'','stroke-linejoin':'round'},s);
+    const n=se.data.length-1;
+    el('circle',{cx:x(n),cy:y(se.data[n]),r:3,fill:se.color,stroke:'#fff','stroke-width':1.5},s);
+    if(endLabels) el('text',{x:x(n)+6,y:y(se.data[n])+3,'font-size':9,fill:C.body},s,`${se.name} ${f(se.data[n])}`);
+    se.data.forEach((v,i)=>{ const hit=el('rect',{x:x(i)-4,y:T,width:8,height:h-T-B,fill:'transparent'},s); tip(hit,`${labels[i].d}: ${se.name} ${f(v)}`); });
+  });
+  return s;
+}
+function hbars(id, {rows, w=250, rowH=17, labelW=92, f=v=>v.toFixed(1), color=v=>v>=0?C.long:C.short, lo, hi, note}){
+  const h = rows.length*rowH + 16, s = svg(id, w, h), R=34;
+  lo = lo ?? Math.min(0, ...rows.map(r=>r.v)); hi = hi ?? Math.max(0, ...rows.map(r=>r.v));
+  const x = v => labelW + (v-lo)/(hi-lo)*(w-labelW-R);
+  el('line',{x1:x(0),x2:x(0),y1:2,y2:h-14,stroke:C.axis},s);
+  rows.forEach((r,i)=>{ const y=4+i*rowH, bh=rowH-6, x0=Math.min(x(0),x(r.v)), bw=Math.max(1,Math.abs(x(r.v)-x(0)));
+    el('text',{x:labelW-5,y:y+bh/2+3,'text-anchor':'end','font-size':9,fill:C.body},s,r.label);
+    const b=el('rect',{x:x0,y,width:bw,height:bh,rx:2,fill:r.color||color(r.v)},s); tip(b,`${r.label}: ${f(r.v)}${r.extra?' · '+r.extra:''}`);
+    const txt=f(r.v)+(r.extra?`  (${r.extra})`:''), tw=txt.length*4.8, inside = r.v<0 && x(r.v)-3-tw < labelW;
+    const lx = r.v>=0 ? x(r.v)+3 : inside ? x(r.v)+4 : x(r.v)-3;
+    el('text',{x:lx,y:y+bh/2+3,'text-anchor':r.v>=0||inside?'start':'end','font-size':8.5,fill:inside?'#fff':C.body,'font-weight':inside?'bold':'normal'},s,txt);
+  });
+  if(note) el('text',{x:labelW,y:h-3,'font-size':8,fill:C.muted},s,note);
+}
+function lsBars(id, rows, w=250){ // long right, short left, net tick
+  const rowH=17, labelW=78, h=rows.length*rowH+16, s=svg(id,w,h), R=40;
+  const m = Math.max(...rows.map(r=>Math.max(r[1],-r[2])));
+  const x = v => labelW + (v+m)/(2*m)*(w-labelW-R);
+  el('line',{x1:x(0),x2:x(0),y1:2,y2:h-14,stroke:C.axis},s);
+  rows.forEach(([lab,l,sh],i)=>{ const y=4+i*rowH, bh=rowH-6;
+    el('text',{x:labelW-5,y:y+bh/2+3,'text-anchor':'end','font-size':9,fill:C.body},s,lab);
+    tip(el('rect',{x:x(0)+1,y,width:x(l)-x(0)-1,height:bh,rx:2,fill:C.long},s),`${lab} long ${l}%`);
+    tip(el('rect',{x:x(sh),y,width:x(0)-x(sh)-1,height:bh,rx:2,fill:C.short},s),`${lab} short ${sh}%`);
+    const net=l+sh; el('rect',{x:x(net)-1,y:y-2,width:2,height:bh+4,fill:C.ink},s);
+    el('text',{x:x(l)+3,y:y+bh/2+3,'font-size':8,fill:C.muted},s,`net ${net>0?'+':''}${net}`);
+  });
+  [-m,0,m].forEach(t=>el('text',{x:x(t),y:h-3,'text-anchor':t===-m?'start':t===m?'end':'middle','font-size':8,fill:C.muted},s,`${Math.round(t)}%`));
+}
+
+// ---------------------------------------------------------------- charts
+// dates
+const days=[]; { let d=new Date(2026,9,1); while(d<=new Date(2026,10,30)){ if(d.getDay()%6) days.push(new Date(d)); d.setDate(d.getDate()+1);} }
+const dl = d => d.getDate()+' '+d.toLocaleString('en-GB',{month:'short'});
+const lab = days.map((d,i)=>({d:dl(d), tick:(i===0||days[i-1].getMonth()!==d.getMonth())||i===days.length-1?dl(d):''}));
+let g=120,n=45; const gross=[],net=[],badj=[];
+days.forEach(()=>{ g+=gauss()*1.2+0.5; n+=gauss()*1.1-0.15; gross.push(+g.toFixed(1)); net.push(+n.toFixed(1)); badj.push(+(n*0.62+gauss()*0.6).toFixed(1)); });
+lineChart('expHist',{series:[{name:'Gross',color:C.long,data:gross},{name:'Net',color:C.short,data:net},{name:'β-adj',color:C.third,data:badj}],
+  labels:lab,w:260,h:150,lo:0,hi:160,ticks:[0,40,80,120,160],f:v=>Math.round(v)+'%',endLabels:false});
+
+lsBars('sectorExp',[['Info Tech',31,-24],['Financials',22,-9],['Industrials',19,-14],['Health Care',17,-6],['Cons. Disc.',12,-15],['Energy',11,-3],['Materials',9,-2],['Utilities',4,-1]]);
+lsBars('countryExp',[['United States',52,-35],['United Kingdom',21,-8],['Germany',6,-6],['France',5,-4],['Japan',3,-4],['Netherlands',2,0],['Other',2,-2]]);
+
+hbars('scenA',{rows:[['TMT',-1.6],['Consumer',-0.7],['Healthcare',-0.5],['Industrials',-0.4],['Spec. Sits',-0.3],['Materials',-0.2],['E&U',-0.1],['FIG',0.4]].map(([l,v])=>({label:l,v})),w:320,rowH:15,labelW:70,f:v=>(v>0?'+':'')+v.toFixed(1)+' pp'});
+hbars('scenB',{rows:[['E&U',-2.3],['Industrials',-1.9],['Consumer',-1.4],['FIG',-1.2],['TMT',-0.6],['Materials',-0.5],['Healthcare',-0.2],['Spec. Sits',0.2]].map(([l,v])=>({label:l,v})),w:320,rowH:15,labelW:70,f:v=>(v>0?'+':'')+v.toFixed(1)+' pp'});
+
+const topRisk = [['NVDA US',8.9,6.8],['ASML NA',7.4,5.1],['TSLA US (S)',6.1,-3.2],['JPM US',5.2,7.4],['RIO LN',4.8,4.0],['SHEL LN',4.1,5.5],['LULU US (S)',3.9,-2.7],['AZN LN',3.3,5.9],['CAT US',3.1,4.2],['BARC LN',2.7,3.6]];
+hbars('riskTop',{rows:topRisk.map(([l,v,wgt])=>({label:l,v,extra:`${wgt>0?'+':''}${wgt}%`,color:wgt>0?C.long:C.short})),w:250,rowH:17,labelW:70,lo:0,hi:12,f:v=>v.toFixed(1)+'%'});
+
+{ // team risk vs capital: paired bars
+  const rows=[['TMT',18,31],['Industrials',15,13],['FIG',13,11],['Consumer',14,12],['E&U',10,12],['Healthcare',10,7],['Materials',9,9],['Spec. Sits',7,5],['Unallocated',4,0]];
+  const w=250,rowH=19,labelW=66,h=rows.length*rowH+14,s=svg('teamRisk',w,h),x=v=>labelW+v/35*(w-labelW-30);
+  rows.forEach(([l,c,r],i)=>{ const y=3+i*rowH;
+    el('text',{x:labelW-5,y:y+10,'text-anchor':'end','font-size':9,fill:C.body},s,l);
+    tip(el('rect',{x:x(0),y,width:x(c)-x(0),height:6,rx:2,fill:C.light},s),`${l}: ${c}% of gross`);
+    tip(el('rect',{x:x(0),y:y+8,width:Math.max(1,x(r)-x(0)),height:6,rx:2,fill:C.long},s),`${l}: ${r}% of risk`);
+    el('text',{x:Math.max(x(c),x(r))+4,y:y+11,'font-size':8.5,fill:r>c*1.4?'#B26A00':C.body,'font-weight':r>c*1.4?'bold':'normal'},s,`${c} / ${r}`);
+  });
+  el('line',{x1:x(0),x2:x(0),y1:0,y2:h-12,stroke:C.axis},s);
+}
+
+hbars('factors',{rows:[['Market',0.62,1],['Value',-0.18,1],['Momentum',0.24,1],['Quality',0.31,1],['Min vol',-0.12,0],['Small cap',0.09,0]].map(([l,v,sig])=>({label:l,v,color:sig?C.long:'#B8C0CE'})),w:250,rowH:20,labelW:62,lo:-0.4,hi:0.8,f:v=>(v>0?'+':'')+v.toFixed(2),
+  color:()=>C.long,note:'Grey: not significant at 5%'});
+
+{ // liquidity single stacked bar
+  const b=[['<1d',88,'#1E3F8A'],['1-5d',9,'#4C74C9'],['5-20d',2,'#93ACDF'],['>20d',1,'#C9D5EE']];
+  const w=250,h=46,s=svg('liq',w,h); let x0=0;
+  b.forEach(([l,v,c])=>{ const ww=v/100*w; tip(el('rect',{x:x0,y:4,width:Math.max(0,ww-2),height:18,rx:2,fill:c},s),`${l}: ${v}% of gross`);
+    if(v>20) el('text',{x:x0+5,y:16.5,'font-size':9,fill:'#fff','font-weight':'bold'},s,`${l} ${v}%`); x0+=ww; });
+  let lx=0; b.forEach(([l,v,c])=>{ el('rect',{x:lx,y:31,width:8,height:8,rx:2,fill:c},s); el('text',{x:lx+11,y:38.5,'font-size':8.5,fill:C.body},s,`${l} ${v}%`); lx+=62; });
+}
+document.getElementById('liqRows').innerHTML=[['XYZ LN',6.8,136,2.1],['SMALLCO US (S)',4.1,82,-1.4],['ABC GR',2.6,52,3.0],['DEF FP',1.9,38,2.4]]
+  .map(r=>`<tr><td>${r[0]}</td><td class="n">${r[1]}</td><td class="n">${r[2]}</td><td class="n">${r[3]}</td></tr>`).join('');
+
+{ // cumulative + drawdown
+  let f=100,m=100; const cf=[],cm=[],dd=[]; let peak=100;
+  days.forEach((d,i)=>{ if(i){ const mk=gauss()*0.8+0.03; m*=1+mk/100; f*=1+(0.4*mk+gauss()*0.55+0.04)/100; } cf.push(+f.toFixed(2)); cm.push(+m.toFixed(2)); peak=Math.max(peak,f); dd.push(+((f/peak-1)*100).toFixed(2)); });
+  const lo=Math.floor(Math.min(...cf,...cm)-1), hi=Math.ceil(Math.max(...cf,...cm)+1);
+  lineChart('cum',{series:[{name:'BIF',color:C.long,data:cf},{name:'MSCI World',color:C.grey,data:cm,dash:'4 3'}],labels:lab,w:520,h:165,lo,hi,ticks:[lo,100,hi],f:v=>v.toFixed(1)});
+  const dlo=Math.floor(Math.min(...dd)-0.5);
+  lineChart('dd',{series:[{name:'Drawdown',color:C.short,data:dd}],labels:lab,w:520,h:85,lo:dlo,hi:0,ticks:[dlo,0],f:v=>v.toFixed(1)+'%',area:true,endLabels:false});
+}
+
+{ // histogram of simulated P&L
+  const pnl=[]; for(let i=0;i<756;i++) pnl.push(gauss()*0.72*(rnd()<0.08?2:1));
+  const sorted=[...pnl].sort((a,b)=>a-b), v95=sorted[Math.floor(0.05*756)], v99=sorted[Math.floor(0.01*756)];
+  const lo=-4,hi=4,nb=32,bins=Array(nb).fill(0); pnl.forEach(p=>{ const k=Math.min(nb-1,Math.max(0,Math.floor((p-lo)/(hi-lo)*nb))); bins[k]++; });
+  const w=250,h=150,L=8,B=18,s=svg('hist',w,h),mx=Math.max(...bins),x=v=>L+(v-lo)/(hi-lo)*(w-2*L),y=c=>h-B-c/mx*(h-B-26);
+  bins.forEach((c,k)=>{ const x0=x(lo+k*(hi-lo)/nb), ww=(w-2*L)/nb-1.5, left=lo+(k+1)*(hi-lo)/nb<=v95;
+    tip(el('rect',{x:x0,y:y(c),width:ww,height:h-B-y(c),rx:1.5,fill:left?C.short:C.light},s),`${(lo+k*(hi-lo)/nb).toFixed(2)}% to ${(lo+(k+1)*(hi-lo)/nb).toFixed(2)}%: ${c} days`); });
+  el('line',{x1:L,x2:w-L,y1:h-B,y2:h-B,stroke:C.axis},s);
+  [[v95,'VaR95',6,1],[v99,'VaR99',18,0]].forEach(([v,t,yy,right])=>{ el('line',{x1:x(v),x2:x(v),y1:yy+2,y2:h-B,stroke:C.ink,'stroke-dasharray':'3 2'},s);
+    el('text',{x:right?x(v)+3:x(v)-3,y:yy+8,'font-size':8.5,fill:C.ink,'text-anchor':right?'start':'end'},s,`${t} ${(-v).toFixed(2)}%`); });
+  [-4,-2,0,2,4].forEach(t=>el('text',{x:x(t),y:h-5,'text-anchor':'middle','font-size':8.5,fill:C.muted},s,t+'%'));
+}
+
+{ // correlation heatmap of teams
+  const tl=['FIG','Health','Indust.','Cons.','Mat.','E&U','Spec.','TMT'], k=tl.length, M=[];
+  for(let i=0;i<k;i++){ M[i]=[]; for(let j=0;j<k;j++) M[i][j]= i===j?1:(j<i?M[j][i]:+(0.15+rnd()*0.6-(i===6||j===6?0.35:0)).toFixed(2)); }
+  const w=250,cell=22,L=44,T=40,s=svg('corr',w,T+k*cell+4);
+  const col=v=>{ const t=Math.max(-1,Math.min(1,v)); if(t>=0){ const a=t; return `rgb(${Math.round(238-(238-30)*a)},${Math.round(240-(240-63)*a)},${Math.round(244-(244-138)*a)})`; }
+    const a=-t; return `rgb(${Math.round(238-(238-201)*a)},${Math.round(240-(240-138)*a)},${Math.round(244-(244-26)*a)})`; };
+  tl.forEach((t,i)=>{ el('text',{x:L-4,y:T+i*cell+cell/2+3,'text-anchor':'end','font-size':8.5,fill:C.body},s,t);
+    el('text',{x:L+i*cell+cell/2-2,y:T-4,'text-anchor':'start','font-size':8.5,fill:C.body,transform:`rotate(-45 ${L+i*cell+cell/2-2} ${T-4})`},s,t); });
+  for(let i=0;i<k;i++) for(let j=0;j<k;j++){ const v=M[i][j];
+    tip(el('rect',{x:L+j*cell+1,y:T+i*cell+1,width:cell-2,height:cell-2,rx:2,fill:i===j?'#F1EFEA':col(v)},s),`${tl[i]} × ${tl[j]}: ${v.toFixed(2)}`);
+    if(i!==j) el('text',{x:L+j*cell+cell/2,y:T+i*cell+cell/2+3,'text-anchor':'middle','font-size':7.5,fill:v>0.55?'#fff':C.body},s,v.toFixed(1)); }
+}
+</script>
+</body>
+</html>
