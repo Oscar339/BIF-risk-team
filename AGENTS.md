@@ -7,7 +7,7 @@ Shared by every team member who uses Codex. Personal instructions go in
 - University of Bristol investment fund (BIF) risk team. Python research code that
   pulls portfolio and market data from Bloomberg and computes risk metrics.
 - Layout: `members/<first-last>/` personal work, `infrastructure/` shared code,
-  `reports/` finished write-ups, `Codex/` hand-over notes between sessions.
+  `reports/` finished write-ups, `claude/` hand-over notes between sessions.
 - The repo lives in each person's University OneDrive and is also on GitHub
   (https://github.com/Oscar339/BIF-risk-team, **public**).
 
@@ -31,5 +31,5 @@ Shared by every team member who uses Codex. Personal instructions go in
 
 ## Hand-over between machines
 Sessions on different machines can't talk to each other directly. They communicate
-through `Codex/handoff/`. See `Codex/README.md`. At the start of a session, read
+through `claude/handoff/` (shared with Claude Code sessions). See `claude/README.md`. At the start of a session, read
 the current user's hand-over file; before finishing, update it.
