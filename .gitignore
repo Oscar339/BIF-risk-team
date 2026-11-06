@@ -9,3 +9,11 @@ __pycache__/
 # Secrets
 .env
 *.key
+# Personal Claude Code files (synced via OneDrive only)
+CLAUDE.local.md
+.claude/settings.local.json
+# OneDrive / OS clutter
+.DS_Store
+Thumbs.db
+desktop.ini
+~$*
