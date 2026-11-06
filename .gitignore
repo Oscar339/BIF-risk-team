@@ -1,0 +1,11 @@
+﻿# Data and results stay in OneDrive, not GitHub
+data/
+results/
+# Environments and caches
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+*.pyc
+# Secrets
+.env
+*.key
