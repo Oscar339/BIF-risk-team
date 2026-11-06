@@ -57,6 +57,20 @@ SLEEVES = {  # member sleeves, from PRTU
     "U15794802-9238": "S. Dominguez",
     "U15794802-9308": "Y. Atasay",
 }
+# Sleeve -> investment team (report sections), from BIF's 2026/27 PM announcements.
+# CIO and Chairman sleeves are not sector teams. TODO: add the Financials sleeve
+# (J. Heyworth) to SLEEVES and here once it is set up in PORT.
+SLEEVE_TEAMS = {
+    "U15794802-9236": "Consumer",            # A. Jeffery
+    "U15794802-9232": "CIO",                 # C. Hook
+    "U15794802-9237": "Special Situations",  # F. Howe
+    "U15794802-9307": "TMT",                 # G. Smith
+    "U15794802-9233": "Industrials",         # J. Wilczewski
+    "U15794802-9235": "Materials",           # L. Fowler
+    "U15794802-9234": "Healthcare",          # M. Yadukha
+    "U15794802-9238": "Chairman",            # S. Dominguez
+    "U15794802-9308": "Energy & Utilities",  # Y. Atasay
+}
 INCEPTION = dt.date(2026, 10, 1)  # earliest date to search for holdings
 
 BENCHMARK = "MXWO Index"  # MSCI World
@@ -783,7 +797,7 @@ def run(nav: float | None = None, base_ccy: str = "GBP", years: int = 7, out_dir
         if s.empty:
             continue
         smv = pos["mv"].reindex(s.index) * (s["position"] / pos["position"].reindex(s.index))
-        sleeve_rows.append({"sleeve": name, "port_id": pid,
+        sleeve_rows.append({"sleeve": name, "team": SLEEVE_TEAMS.get(pid) or "Unassigned", "port_id": pid,
                             **exposure_summary(smv, nav, pos["beta_bbg"], pos["beta_calc"])})
 
     positions_out = pos.drop(columns=["market_value"]).sort_values("weight_gross", ascending=False)

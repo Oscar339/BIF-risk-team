@@ -1,0 +1,97 @@
+/* BIF risk dashboard: one A4 page, styled after the BIF Monthly Research Review. */
+:root{
+  --navy:#0B2160; --navy2:#14357F; --gold:#D4AA3A; --teal:#1E8070;
+  --beige:#F1EFEA; --tile:#E8EDF6; --body:#33415C; --muted:#6B7A90; --rule:#D9DEE7;
+  --ok:#2E7D32; --watch:#B26A00; --breach:#B3261E;
+}
+@page{size:A4;margin:0}
+*{box-sizing:border-box}
+body{margin:0;background:#C9CED8;font-family:Arial,Helvetica,sans-serif;color:var(--body)}
+.page{width:210mm;height:296mm;margin:8mm auto;background:#fff;position:relative;padding:10mm 14mm 14mm;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+@media print{body{background:#fff}.page{margin:0;box-shadow:none}}
+
+.hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:4mm}
+.logo{display:flex;align-items:center;gap:6px;font-family:Georgia,serif;color:#111}
+.logo b{font-size:20px;letter-spacing:-2px}
+.logo span{font-size:6px;line-height:1.25;border-left:1px solid #999;padding-left:5px;letter-spacing:.12em}
+.month{font-size:10px;color:var(--muted)}
+.kicker{color:var(--teal);font-weight:bold;font-size:10px;letter-spacing:.04em;text-transform:uppercase;margin:0 0 1px}
+h1.title{color:var(--navy);font-size:28px;margin:0 0 2px;letter-spacing:-.5px}
+.byline{font-size:9.5px;color:var(--muted);margin-bottom:3mm}
+.band{background:linear-gradient(180deg,var(--navy),var(--navy2));color:#fff;margin:-1mm -14mm 3mm;padding:4mm 14mm 4mm;border-radius:0 0 14px 0;position:relative}
+.band h1{font-size:26px;margin:1px 0 4px;letter-spacing:-.5px}
+.band .kicker,.band .byline{color:#C9D3EA;margin:0}
+.band:after{content:"";position:absolute;left:14mm;bottom:2mm;width:28mm;height:2px;background:var(--gold)}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-bottom:2.5mm}
+.kpi{background:var(--tile);padding:2.2mm 3mm;min-height:16mm}
+.kpi:first-child{background:var(--navy);color:#fff}
+.kpi .l{font-size:10px}
+.kpi .v{font-size:19px;font-weight:bold;color:var(--navy);margin-top:1mm}
+.kpi:first-child .v{color:#fff}
+.kpi .d{font-size:8.5px;color:var(--muted);margin-top:.6mm;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi:first-child .d{color:#C9D3EA}
+
+.box{background:var(--beige);padding:2.5mm 3.5mm;position:relative;margin-bottom:2.5mm}
+.box.blue{background:var(--tile)}
+.box h3{margin:0 0 1mm;color:var(--navy);font-size:12px}
+.box p,.box li{margin:0 0 1mm;font-size:9px;line-height:1.38}
+.box ul{margin:0;padding-left:12px}
+.ph{color:var(--muted)}
+.tag{position:absolute;top:1.6mm;right:1.6mm;font-size:7.5px;font-weight:bold;letter-spacing:.06em;padding:1px 4px;border-radius:2px}
+.tag.auto{background:var(--teal);color:#fff}
+.tag.ed{background:var(--gold);color:var(--navy)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:2.5mm 4mm;margin-bottom:2.5mm}
+.g2b{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
+.split{display:grid;grid-template-columns:1.25fr 1fr;gap:4mm}
+.split .col .chart{margin-bottom:2mm}
+.chart{position:relative}
+.chart .tag{top:0;right:0}
+.chart svg{display:block;width:100%;height:auto}
+.ct{font-size:11px;font-weight:bold;color:var(--navy)}
+.cs{font-size:8.5px;color:var(--muted);margin-bottom:.5mm}
+
+ul.flags{list-style:none;margin:0;padding:0}
+ul.flags li{font-size:10px;line-height:1.35;margin-bottom:1mm;display:flex;gap:5px}
+ul.flags li span{font-weight:bold;width:10px;flex:none}
+.f-ok span{color:var(--ok)} .f-watch span{color:var(--watch)} .f-breach span{color:var(--breach)} .f-na span{color:var(--muted)}
+
+table.tt{width:100%;border-collapse:collapse;font-size:8.5px;margin-bottom:2.5mm}
+.tt th{background:var(--navy);color:#fff;text-align:left;padding:1.6mm 2mm;font-weight:bold}
+.tt td{padding:1.15mm 2mm;border-bottom:1px solid var(--rule)}
+.tt .n{text-align:right}
+.tt tr.empty td{color:var(--muted)}
+
+.note{font-size:8.5px;color:var(--muted);line-height:1.35;margin:0 0 2mm}
+.note.method{position:absolute;left:14mm;right:14mm;bottom:12mm;margin:0}
+.foot{position:absolute;left:14mm;right:14mm;bottom:6mm;display:flex;justify-content:space-between;font-size:8px;color:var(--navy)}
+.foot b{font-size:9.5px}
+
+/* mandate checks table */
+table.mt{width:100%;border-collapse:collapse;font-size:10px;margin:0 0 2mm}
+.mt th{text-align:left;color:var(--muted);font-weight:bold;border-bottom:1px solid var(--rule);padding:.6mm 1mm}
+.mt td{padding:.7mm 1mm;border-bottom:1px solid var(--rule)}
+.mt .n{text-align:right}
+.badge{display:inline-block;font-size:9px;font-weight:bold;padding:0 5px;border-radius:8px;border:1px solid}
+.b-ok{color:var(--ok);border-color:var(--ok)} .b-watch{color:var(--watch);border-color:var(--watch)}
+.b-breach{color:#fff;background:var(--breach);border-color:var(--breach)}
+
+/* fill the page: the editorial box takes whatever height the rest leaves */
+.content{position:absolute;top:22mm;left:14mm;right:14mm;bottom:21mm;display:flex;flex-direction:column}
+.content>*{flex:none}
+.box.editorial{flex:1 1 auto;min-height:30mm;display:flex;flex-direction:column}
+.box.editorial h3{font-size:14px;margin-bottom:2mm}
+.box.editorial .cols{column-count:2;column-gap:6mm;column-fill:balance}
+.box.editorial p,.box.editorial li{font-size:11.5px;line-height:1.4;break-inside:avoid-column}
+.box.editorial p:first-child{margin-top:0}
+.box.grid-cell{margin:0}
+.g2c{display:grid;grid-template-columns:1.1fr 1fr;gap:5mm}
+.g2:last-child{margin-bottom:0}
+.g3c{display:grid;grid-template-columns:1.05fr 1.05fr 1fr;gap:5mm}
+.mt td.src{color:var(--muted);font-size:8.5px;white-space:nowrap}
+.g3c{display:grid;grid-template-columns:1.05fr 1.05fr 1fr;gap:5mm}
+.mt td.src{color:var(--muted);font-size:8.5px;white-space:nowrap}
+.mt td.n,.mt td:last-child,.mt th{white-space:nowrap}
+.g3c .mt td,.g3c .mt th{padding-left:.6mm;padding-right:.6mm}
+.g2b .box .mt td{padding-top:1mm;padding-bottom:1mm}
