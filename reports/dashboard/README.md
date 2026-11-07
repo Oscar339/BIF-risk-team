@@ -1,6 +1,11 @@
-# Risk dashboard
+# Risk dashboard and risk pages
 
-The one-page A4 risk dashboard ("Risk summary"), published roughly monthly. Each
+The Risk team's pages in the BIF Monthly Research Review, published monthly (on the 7th, covering
+the previous month). One PDF per report:
+
+- **R1**: the one-page A4 risk dashboard ("Risk summary"), built from the Bloomberg pull.
+- **R2, R3, ...**: free pages the Risk team fills each month (stress tests, modelling, advice to
+  the teams, thematic pieces, a risk view of recent events), written in `pages.md`. Each
 publication is a numbered report folder: `report_00`, `report_01`, …
 
 ## Making a report
@@ -52,13 +57,58 @@ under each heading:
 
 The grey `<!-- ... -->` comments are hints and never appear on the PDF.
 
+### 2b. Write the free pages (any machine)
+
+Open **`reports/dashboard/report_01/pages.md`** (created on the first build). Every `# page`
+heading is one A4 page; the file starts with two (R2, R3). Add or delete `# page` sections as
+needed. Under each, set the header, then write anything:
+
+```
+# page
+kicker: Stress test
+title: If 2022 happened again
+byline: Risk team: A. Smith
+sources: S01 Bloomberg prices to 30 Nov 2026. Shocks are assumptions, not forecasts.
+
+Plain paragraphs, **bold**, *italic*, ## sub-heading, ### small heading, - bullets, 1. numbers.
+| Markdown | table |            numbers right-align automatically
+![Title | subtitle | Source S01](my_chart.svg)      file in report_01/figures/; {height=60mm} after it to cap height
+> **Box title**                  beige box (start with "> !" on its own line for a blue box)
+> Box text
+::: tiles                        number tiles, one per line: label | value | note
+::: cols                         side by side; a line with ||| starts the next column ("::: cols 3:2" sets widths)
+::: text2                        one text block flowing over two columns
+:::                              closes any ::: block
+Note: small grey footnote
+```
+
+The preview `design/preview/pages.md` is a full worked example (a stress test and a thematic page).
+
+Figures: make them however you like (PNG or SVG). For the house style from Python, run from
+`reports/dashboard/`:
+
+```python
+from design.page import save_figure, INK, BLUE, AMBER, LIGHT, MUTED   # also sets fonts
+fig, ax = plt.subplots(figsize=(7.2, 2.4))   # 7.2in = full page width
+...
+save_figure(fig, "report_01/figures/my_chart.svg")
+```
+
+If a page has too much content, the build prints a warning and the PDF shows a red bar on that
+page: cut text or shrink a figure. `pages.md` and `figures/` are gitignored (OneDrive only), so
+naming holdings there is fine.
+
+Leave market narrative to Investment Reporting: write about events only as they affect the
+fund's risk.
+
 ### 3. Rebuild the PDF (any machine, no Bloomberg needed)
 
 ```
 python reports/dashboard/build_report.py 1
 ```
 
-Repeat steps 2 and 3 until it reads well. If the text overflows the box, shorten it.
+Repeat steps 2 and 3 until it reads well. If the text overflows its box or page, the build warns
+and the PDF shows a red bar: shorten it.
 If the PDF doesn't update, close it in your PDF viewer first.
 
 ### 4. Save the record
@@ -90,12 +140,15 @@ reports/dashboard/
   design/               shared by every report: change the look here, once
     config.py           fund and sleeve IDs, sleeve -> team map, limits, tile list, method settings
     style.css           page styling
-    page.py             charts and page layout
+    page.py             charts and page layout (dashboard, page shell, PDF)
+    pages.py            free pages: reads pages.md
     risk.py             risk calculations
     bloomberg.py        Bloomberg API client
-    preview/            demo page with invented data
+    preview/            demo pages with invented data (pages.md = worked example)
   report_00/            one folder per publication
-    commentary.md       <- you write here (committed)
+    commentary.md       <- you write here: dashboard text (committed)
+    pages.md            <- you write here: free pages R2+ (OneDrive only)
+    figures/            charts for pages.md (OneDrive only)
     data/               pulled data (OneDrive only)
     risk_dashboard_report_00.pdf
 ```

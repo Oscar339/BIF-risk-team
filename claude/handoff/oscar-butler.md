@@ -63,6 +63,11 @@
   Old static mockups: `dashboard testing/mockups/risk_dashboard_mockup.html`.
 
 ## Done
+- 2026-11-07 (mac) Free risk pages: the report PDF is now R1 dashboard + R2, R3, ... from `report_XX/pages.md`
+  (Markdown-like: tiles, cols, text2, boxes, tables, figures from `report_XX/figures/`). Oscar wants full
+  flexibility each month (stress tests, modelling, advice, thematic, risk view of events; not IR's market
+  narrative). pages.md + figures gitignored (may name holdings). Overflow -> build warning + red bar on PDF.
+  Worked example in `design/preview/pages.md`. report_00 rebuilt with blank R2/R3 (old data, re-pull still pending).
 - 2026-11-07 (mac) Dashboard header now uses the real BIF logo (`reports/dashboard/design/bif_logo.png`, taken
   from BIF_Monthly_Report_Template_VF.pdf, embedded as a data URI) instead of the CSS "BF" imitation. Title
   renamed "Risk at a glance" -> "Risk summary". Preview and report 0 rebuilt.

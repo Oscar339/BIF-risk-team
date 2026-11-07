@@ -22,6 +22,7 @@ import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
 from design import config as C  # noqa: E402
+from design import pages as FP  # noqa: E402
 from design import risk  # noqa: E402
 
 STYLE = C.DESIGN_DIR / "style.css"
@@ -384,10 +385,25 @@ def editorial(com) -> str:
     return f'<div class="box editorial"><h3>{head}</h3><div class="cols">{commentary_html(com.get("body"), "body")}</div></div>'
 
 
-def page(d, com) -> str:
+def footer_label(d) -> str:
+    return "DESIGN PREVIEW: ILLUSTRATIVE DATA" if d.get("demo") else f"BIF risk report &nbsp;|&nbsp; Report {d['n']}"
+
+
+def page_shell(d, inner: str, note: str, num: str, cls: str = "") -> str:
+    """One A4 page: logo header, content area, footnote and page number."""
+    s = d["summary"]
+    return f"""<div class="page">
+<div class="hdr"><img class="logo" src="{logo_src()}" alt="Bristol Investment Fund">
+<div class="month">AS OF {day_mon(s.get('as_of'), year=True).upper()}</div></div>
+<div class="content {cls}">{inner}</div>
+<div class="overflow-flag">Page {num}: content runs off the page. Cut text or shrink a figure.</div>
+<div class="note method">{note}</div>
+<div class="foot"><span>{footer_label(d)}</span><b>{num}</b></div></div>"""
+
+
+def dashboard_page(d, com) -> str:
     s = d["summary"]
     authors = html.escape(com.get("authors") or "Risk team [authors]")
-    label = "DESIGN PREVIEW: ILLUSTRATIVE DATA" if d.get("demo") else f"BIF risk dashboard &nbsp;|&nbsp; Report {d['n']}"
     factor_sub = f"Fund betas to MSCI World and factor spreads, 2y weekly · R² {num(s.get('factor_r2_systematic_pct'), '{:.0f}%')}"
     grid = (f'<div class="g2">'
             f'{chart("Exposure by team", "Long and short, % of fund NAV; tick = net", chart_team_exposure(d))}'
@@ -396,19 +412,55 @@ def page(d, com) -> str:
             f'{chart("Factor exposures", factor_sub, chart_factors(d))}'
             f'</div><div class="g2b">{box("Mandate checks", mandate(d) + flags(d), "blue")}'
             f'{box("Sensitivity tests", sensitivities(d), "blue")}</div>')
+    inner = (f'<div class="kicker">Risk</div><h1 class="title">Risk summary</h1>'
+             f'<div class="byline">{authors}</div>{kpis(d)}{editorial(com)}{grid}')
+    return page_shell(d, inner, html.escape(method_note(d)), "R1", "dash")
+
+
+def free_pages(d, pages: list[dict], fig_dir: Path, warn: list[str]) -> list[str]:
+    out = []
+    for k, pg in enumerate(pages, start=2):
+        note = FP.inline(pg["sources"]) if pg["sources"] else ""
+        if d.get("demo"):
+            note = (note + " " if note else "") + "ILLUSTRATIVE DATA, NOT BIF HOLDINGS."
+        out.append(page_shell(d, FP.render(pg, fig_dir, warn), note, f"R{k}", "free"))
+    return out
+
+
+# Marks pages whose content is cut off, so the PDF shows a red bar and the build can warn.
+OVERFLOW_JS = """<script>
+document.querySelectorAll('.page').forEach(function (p) {
+  var c = p.querySelector('.content'); if (!c) return;
+  var over = c.scrollHeight > c.clientHeight + 2;
+  if (c.classList.contains('dash')) { var e = c.querySelector('.editorial .cols');
+    if (e && e.parentElement.scrollHeight > e.parentElement.clientHeight + 2) over = true; }
+  if (over) p.classList.add('overflow');
+});
+</script>"""
+
+
+def document(d, page_html: list[str]) -> str:
+    s = d["summary"]
     return f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
-<title>BIF risk dashboard: report {d['n']} ({s.get('as_of')})</title><style>{STYLE.read_text(encoding="utf-8")}</style></head>
-<body><div class="page">
-<div class="hdr"><img class="logo" src="{logo_src()}" alt="Bristol Investment Fund">
-<div class="month">AS OF {day_mon(s.get('as_of'), year=True).upper()}</div></div>
-<div class="content">
-<div class="kicker">Risk</div><h1 class="title">Risk summary</h1>
-<div class="byline">{authors}</div>
-{kpis(d)}
-{editorial(com)}
-{grid}</div>
-<div class="note method">{html.escape(method_note(d))}</div>
-<div class="foot"><span>{label}</span><b>R1</b></div></div></body></html>"""
+<title>BIF risk report: report {d['n']} ({s.get('as_of')})</title><style>{STYLE.read_text(encoding="utf-8")}</style></head>
+<body>{"".join(page_html)}{OVERFLOW_JS}</body></html>"""
+
+
+def page(d, com) -> str:
+    """The dashboard alone (R1), as a full HTML document."""
+    return document(d, [dashboard_page(d, com)])
+
+
+def overflowing_pages(html_file: Path) -> list[str] | None:
+    """Page numbers that overflow, read back from the rendered page; None if no browser is available."""
+    browser = find_browser()
+    if not browser:
+        return None
+    with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as profile:
+        r = subprocess.run([browser, "--headless=new", "--disable-gpu", f"--user-data-dir={profile}",
+                            "--window-size=900,1200", "--dump-dom", html_file.as_uri()],
+                           capture_output=True, timeout=180, check=False, text=True, encoding="utf-8", errors="replace")
+    return re.findall(r'<div class="page overflow">.*?<b>(R\d+)</b>', r.stdout, flags=re.S)
 
 
 # ---------------------------------------------------------------- output
@@ -505,3 +557,46 @@ def demo_data() -> dict:
     var = pd.DataFrame({"date": dates, "pnl_pct_nav": port.to_numpy() / nav * 100})
     return {"n": 0, "demo": True, "summary": summary, "prev": {"summary": prev, "label": "31 Oct"}, "positions": pos,
             "var_contrib": risk.var_contributions(pos_pnl), "var": var, "limits": lim}
+
+
+# ---------------------------------------------------------------- figures for free pages
+def save_figure(fig, path: Path) -> Path:
+    """Save a matplotlib figure for pages.md in the house style (SVG, transparent). Import this module first so
+    the fonts and palette (INK, BLUE, AMBER, LIGHT, MUTED) apply, then: ![Title | subtitle](name.svg)."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(path, format=path.suffix.lstrip(".") or "svg", transparent=True, bbox_inches="tight", dpi=200)
+    plt.close(fig)
+    return path
+
+
+def demo_figures(out: Path) -> None:
+    """Invented figures used by design/preview/pages.md."""
+    teams = C.REPORT_TEAMS
+    hit = [-0.6, -0.3, -0.9, -0.2, -1.1, 0.4, -0.5, -1.4]
+    fig, ax = plt.subplots(figsize=(3.4, 2.2))
+    ax.barh(teams, hit, color=[AMBER if v < 0 else BLUE for v in hit], height=0.62)
+    ax.axvline(0, color="#B8C0CE", lw=0.8)
+    ax.invert_yaxis()
+    ax.set_xlabel("% of fund NAV", fontsize=7.5)
+    ax.grid(axis="x", color=GRID, lw=0.6)
+    ax.set_axisbelow(True)
+    for i, v in enumerate(hit):
+        ax.text(v + (0.04 if v >= 0 else -0.04), i, f"{v:+.1f}", va="center", ha="left" if v >= 0 else "right",
+                fontsize=7.5, color=INK)
+    ax.set_xlim(-1.8, 0.8)
+    save_figure(fig, out / "demo_stress_by_team.svg")
+
+    rng = np.random.default_rng(3)
+    dates = pd.bdate_range("2026-06-01", "2026-11-30")
+    base = np.clip(0.32 + np.cumsum(rng.normal(0.0016, 0.01, len(dates))), 0.1, 0.9)
+    other = np.clip(0.22 + np.cumsum(rng.normal(0.0, 0.008, len(dates))), 0.05, 0.6)
+    fig, ax = plt.subplots(figsize=(7.2, 2.0))
+    ax.plot(dates, base, color=BLUE, lw=1.6, label="AI-capex names held by TMT, Industrials, Energy & Utilities")
+    ax.plot(dates, other, color=LIGHT, lw=1.6, label="Rest of the long book")
+    ax.set_ylabel("Avg pairwise corr.", fontsize=7.5)
+    ax.grid(axis="y", color=GRID, lw=0.6)
+    ax.set_ylim(0, 1)
+    top_legend(ax, 2)
+    ax.xaxis.set_major_formatter(matplotlib.dates.DateFormatter("%b"))
+    save_figure(fig, out / "demo_crowding.svg")
