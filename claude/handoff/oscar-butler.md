@@ -8,7 +8,18 @@
   short borrow cost.
 - GitHub repo set up 2026-11-06 from the Mac. Git login on the Bloomberg PC not yet working.
 
+- 2026-11-07 (bloomberg) Published dashboard pipeline now lives in `reports/dashboard/` (onebox layout
+  chosen). `pull_data.py <n>` (Bloomberg) -> `report_XX/data/` + PDF; `build_report.py [n]` rebuilds from
+  `report_XX/commentary.md` (any machine); design shared in `reports/dashboard/design/`. Arrows on tiles
+  compare with the previous report (red = more risk). See `reports/dashboard/README.md`.
+  report_00 pulled 2026-11-07 (10 holdings, all long; NAV = gross proxy, so net shows 100% and breaches
+  the 80% limit until cash is filled). LIMITS in `design/config.py` are the mockup values: confirm.
+- Bloomberg PC venv recreated 2026-11-07 with uv + Python 3.13 (`%LOCALAPPDATA%\envs\bif-risk-team`).
+  No git installed on this PC.
+
 ## Requests
+- [ ] 2026-11-07 for: either (from: bloomberg) Write report_00 commentary in
+  `reports/dashboard/report_00/commentary.md`, then `python reports/dashboard/build_report.py 0`.
 - [ ] 2026-11-06 for: bloomberg (from: mac) Once GitHub works on this PC: `git pull`, check
   `git status` is clean and `git log` shows "Add Claude hand-over setup", then do a test
   `git push` (e.g. tick this request off). Note here if anything failed.
@@ -33,5 +44,8 @@
   Old static mockups: `dashboard testing/mockups/risk_dashboard_mockup.html`.
 
 ## Done
+- 2026-11-07 (mac) Committed + pushed `reports/dashboard/` (code, README, design/preview, report_00/commentary.md),
+  `reports/README.md`, `.gitignore` and the static mockup PDF. Checked: no report data/PDF/HTML or
+  `metrics_history.csv` tracked; preview and mockup PDFs contain invented data only.
 - 2026-11-06 (mac) Created public repo Oscar339/BIF-risk-team, normalised line endings,
   added README setup steps, CLAUDE.md, this hand-over folder, protected `main`.

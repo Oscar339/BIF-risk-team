@@ -1,6 +1,10 @@
 ﻿# Data and results stay in OneDrive, not GitHub
 data/
 results/
+# Risk dashboard outputs contain holdings (commentary.md and design/preview/ are committed)
+reports/dashboard/report_*/*.pdf
+reports/dashboard/report_*/*.html
+reports/dashboard/metrics_history.csv
 # Environments and caches
 .venv/
 __pycache__/
