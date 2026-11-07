@@ -24,6 +24,10 @@
   No git installed on this PC.
 
 ## Requests
+- [ ] 2026-11-07 for: bloomberg (from: mac) Once Oscar has the fund's start capital (from fund leadership) in
+  `members/oscar-butler/dashboard testing/data/fund_capital.csv` (`date,amount`): re-pull report 0 with
+  `python reports/dashboard/pull_data.py 0 --force`. The log should say "Capital from ..." and NAV source
+  "start capital + P&L since inception". Check cash looks sensible (it is printed as % NAV on the page).
 - [ ] 2026-11-07 for: either (from: bloomberg) Write report_00 commentary in
   `reports/dashboard/report_00/commentary.md`, then `python reports/dashboard/build_report.py 0`.
 - [ ] 2026-11-06 for: bloomberg (from: mac) Once GitHub works on this PC: `git pull`, check
@@ -50,6 +54,9 @@
   Old static mockups: `dashboard testing/mockups/risk_dashboard_mockup.html`.
 
 ## Done
+- 2026-11-07 (mac) NAV from start capital: `fund_capital.csv` (date,amount) -> NAV = capital + daily P&L from
+  end-of-day holdings, cash = NAV - holdings (`risk.fund_pnl`, `risk.nav_from_capital`). Tested on synthetic
+  data only; first real run is the report 0 re-pull above. Empty template created in OneDrive (gitignored).
 - 2026-11-07 (mac) Committed + pushed `reports/dashboard/` (code, README, design/preview, report_00/commentary.md),
   `reports/README.md`, `.gitignore` and the static mockup PDF. Checked: no report data/PDF/HTML or
   `metrics_history.csv` tracked; preview and mockup PDFs contain invented data only.

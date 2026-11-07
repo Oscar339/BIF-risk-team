@@ -33,6 +33,6 @@ date,cash
 
 ### TODO: to be filled out
 
-- [ ] **Risk limits.** BIF's limits are needed (e.g. gross/net exposure bands, max single position, sector caps, VaR limit). Fill them into `LIMITS` in `dashboard_v2.py`; the `limits` table then reports OK / BREACH for each.
-- [ ] **Fund cash.** Fill in `data/fund_cash.csv` (above). Until then, % of NAV figures use gross market value.
+- [x] **Risk limits.** Done in the published dashboard (`reports/dashboard/design/config.py`), from the 2026/27 Fund & Investment Strategy.
+- [ ] **Fund capital.** The fund is simulated, so there is no real cash balance. Put the start capital in `data/fund_capital.csv` (`date,amount`, e.g. `2026-10-01,10000000`); the published dashboard (`reports/dashboard/pull_data.py`) then sets NAV = capital + P&L since inception and cash = NAV − holdings. `dashboard_v2.py` still uses `fund_cash.csv`.
 - [ ] **Short borrow cost.** Not available through the Bloomberg API; needs another source (SECF or the prime broker) once the fund has shorts.

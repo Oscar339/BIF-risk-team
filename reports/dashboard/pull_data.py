@@ -50,6 +50,20 @@ def load_cash(warnings: list[str]) -> pd.Series | None:
     return df.dropna().groupby("date")["cash"].last().sort_index()
 
 
+def load_capital() -> pd.Series | None:
+    """Capital paid into the fund by date (date,amount)."""
+    f = next((p for p in C.CAPITAL_FILES if p.exists()), None)
+    if f is None:
+        return None
+    df = pd.read_csv(f)
+    if df.empty:
+        return None
+    df["date"] = pd.to_datetime(df["date"], dayfirst=True)
+    df["amount"] = pd.to_numeric(df["amount"].astype(str).str.replace(",", ""), errors="coerce")
+    print(f"Capital from {f}")
+    return df.dropna().groupby("date")["amount"].sum().sort_index()
+
+
 def team_split(current: pd.DataFrame, fund: pd.DataFrame) -> pd.DataFrame:
     """Each fund position split across the teams whose sleeves hold it (by share of position).
     Anything not in a sleeve is 'Unallocated'. Returns security, team, share."""
@@ -101,17 +115,28 @@ def pull(n: int, nav: float | None = None, force: bool = False) -> Path:
     # Current fund positions (signed market value in base currency) and NAV
     fund = current[current["port_id"] == C.FUND].groupby("security")[["position", "market_value"]].sum()
     mv = (np.sign(fund["position"]) * fund["market_value"].abs()).rename("mv")
-    cash = load_cash(warnings)
-    cash_today = None
-    if cash is not None and len(cash.loc[:pd.Timestamp(today)]):
-        cash_today = float(cash.loc[:pd.Timestamp(today)].iloc[-1])
-    if nav:
-        nav_source = "user (--nav)"
-    elif cash_today is not None:
-        nav, nav_source = float(mv.sum() + cash_today), "holdings + cash"
+    fund_hist = hist[hist["port_id"] == C.FUND]
+    capital = None if nav else load_capital()
+    cash, cash_today = None, None
+    if capital is not None and not fund_hist.empty:
+        _, pnl, net, _ = R.fund_pnl(fund_hist, prices)
+        nav_path = R.nav_from_capital(capital, pnl)
+        cash = nav_path - net  # implied cash; drawdown then measures returns on NAV
+        nav, nav_source = float(nav_path.iloc[-1]), "start capital + P&L since inception"
+        cash_today = nav - float(mv.sum())
     else:
-        nav, nav_source = float(mv.abs().sum()), "proxy: gross market value (no cash; fill fund_cash.csv or pass --nav)"
-        warnings.append("NAV not available: all % of NAV figures use gross market value")
+        if capital is not None:
+            warnings.append("No holdings history: fund_capital.csv not used")
+        cash = load_cash(warnings)
+        if cash is not None and len(cash.loc[:pd.Timestamp(today)]):
+            cash_today = float(cash.loc[:pd.Timestamp(today)].iloc[-1])
+        if nav:
+            nav_source = "user (--nav)"
+        elif cash_today is not None:
+            nav, nav_source = float(mv.sum() + cash_today), "holdings + cash"
+        else:
+            nav, nav_source = float(mv.abs().sum()), "proxy: gross market value (fill fund_capital.csv or pass --nav)"
+            warnings.append("NAV not available: all % of NAV figures use gross market value")
 
     rets, wk = R.daily_returns(prices), R.weekly_returns(prices)
     factors, beta, port_wk = R.factor_exposures(mv, wk, nav)
@@ -121,7 +146,7 @@ def pull(n: int, nav: float | None = None, force: bool = False) -> Path:
         "cash": cash_today, **R.exposure(mv, nav), **R.concentration(mv, nav),
         "beta": float((mv * beta.reindex(mv.index)).sum() / nav),  # NAV-weighted stock betas to MSCI World
         **risk, **factors, **R.rates_sensitivity(port_wk, yields),
-        **R.drawdown(hist[hist["port_id"] == C.FUND], prices, nav if nav_source.startswith("user") else None, cash, warnings),
+        **R.drawdown(fund_hist, prices, nav if nav_source.startswith("user") else None, cash, warnings),
     }
     summary = {k: clean(v) for k, v in summary.items()}
 

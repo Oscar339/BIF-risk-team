@@ -118,12 +118,9 @@ def rates_sensitivity(port_wk: pd.Series, yields: pd.DataFrame) -> dict:
     return out
 
 
-def drawdown(hist_pos: pd.DataFrame, prices: pd.DataFrame, nav_today: float | None, cash: pd.Series | None,
-             warnings: list[str]) -> dict:
-    """Fund drawdown since inception, rebuilt from end-of-day holdings (pos(t-1) x price change(t))."""
-    if hist_pos.empty:
-        warnings.append("No holdings history found: drawdown not available")
-        return {}
+def fund_pnl(hist_pos: pd.DataFrame, prices: pd.DataFrame):
+    """Daily fund P&L from end-of-day holdings (pos(t-1) x price change(t)), with net and gross MV,
+    from the first holdings date. Returns (start, pnl, net, gross)."""
     # absent on a date with holdings = not held that day
     pos = hist_pos.pivot_table(index="date", columns="security", values="position", aggfunc="sum").fillna(0.0)
     start = pos.index.min()
@@ -135,7 +132,23 @@ def drawdown(hist_pos: pd.DataFrame, prices: pd.DataFrame, nav_today: float | No
     mv = pos * px
     net, gross = mv.sum(axis=1), mv.abs().sum(axis=1)
     keep = pnl.index >= start
-    pnl, net, gross = pnl[keep], net[keep], gross[keep]
+    return start, pnl[keep], net[keep], gross[keep]
+
+
+def nav_from_capital(capital: pd.Series, pnl: pd.Series) -> pd.Series:
+    """Daily NAV = capital paid in so far (start capital, then any top-ups/withdrawals) + cumulative P&L."""
+    paid = capital.sort_index().cumsum()
+    paid = paid.reindex(paid.index.union(pnl.index)).sort_index().ffill().bfill().reindex(pnl.index)
+    return paid + pnl.cumsum()
+
+
+def drawdown(hist_pos: pd.DataFrame, prices: pd.DataFrame, nav_today: float | None, cash: pd.Series | None,
+             warnings: list[str]) -> dict:
+    """Fund drawdown since inception, rebuilt from end-of-day holdings (pos(t-1) x price change(t))."""
+    if hist_pos.empty:
+        warnings.append("No holdings history found: drawdown not available")
+        return {}
+    start, pnl, net, gross = fund_pnl(hist_pos, prices)
     if cash is not None:
         c = cash.reindex(cash.index.union(pnl.index)).sort_index().ffill().bfill().reindex(pnl.index)
         denom = (net + c).shift(1)

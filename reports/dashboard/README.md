@@ -26,8 +26,18 @@ reports/dashboard/report_01/risk_dashboard_report_01.pdf
 
 The PDF already has every number and chart. Only the commentary box is a grey placeholder.
 
-If cash isn't in `data/fund_cash.csv`, add `--nav 3000000` (NAV in £, including cash).
-Otherwise the % NAV figures use gross market value and the page says so.
+**NAV.** BIF is a simulated fund, so PORT holds no cash. Put the fund's start capital in
+`members/oscar-butler/dashboard testing/data/fund_capital.csv` (OneDrive only, never git):
+
+```
+date,amount
+2026-10-01,10000000
+```
+
+Add a row for any later top-up (+) or withdrawal (−). The pull then sets NAV = capital + P&L
+since inception (rebuilt from end-of-day holdings, dividends ignored) and cash = NAV − holdings.
+Without it, a cash file (`fund_cash.csv`, `date,cash`) is used if filled; otherwise the % NAV
+figures use gross market value and the page says so. `--nav 3000000` overrides NAV for one pull.
 
 ### 2. Write the commentary (any machine)
 
