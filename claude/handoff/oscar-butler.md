@@ -18,7 +18,7 @@
   guide, position 5–20% of team NAV with team NAV = NAV/8, 5–10 names per team); old gross/net/VaR/10%
   placeholders removed. Limits are computed at build time (page.load_report), so no re-pull needed.
   Report 0: Special Situations position ~200% of team NAV and teams with 0 names breach (NAV still a proxy).
-  "5–10 active names" read as per team: confirm. Demo book (preview) is far outside the new limits and
+  Oscar confirmed: "5–10 active names" is per team; team weights equal (1/8) for now, may change later. Demo book (preview) is far outside the new limits and
   its commentary mentions the old 200% gross limit: tidy when next changing the design.
 - Bloomberg PC venv recreated 2026-11-07 with uv + Python 3.13 (`%LOCALAPPDATA%\envs\bif-risk-team`).
   No git installed on this PC.
