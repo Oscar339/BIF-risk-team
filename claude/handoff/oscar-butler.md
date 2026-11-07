@@ -42,6 +42,12 @@
   (C. Hook = CIO, S. Dominguez = Chairman).
 
 ## Notes
+- 2026-11-07 (mac) Monthly report schedule (Callum, CIO): publish on the 7th of the month after the
+  period. First issue = November 2026, out Mon 7 Dec, and it also introduces the report and mandate.
+  Plan: the Python dashboard replaces template p15 ("Risk across the book"), followed by two more
+  Risk pages (proposal in progress, not agreed with Investment Reporting yet). `pull_data.py` always
+  pulls "as of today": no as-of date option, so the 30 Nov month-end needs either a pull after the
+  close on 30 Nov or an `--as-of` option added before then.
 - 2026-11-07 (mac) Open question for fund leadership: per-team capital × 8 doesn't match the stated fund
   total (amounts in fund_capital.csv only, never here). Team limits use NAV/8 meanwhile.
 - 2026-11-06 (mac) Bloomberg-PC commits 955a43b/00b7bb9 were never pushed; rebuilt on the Mac
