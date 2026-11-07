@@ -1,6 +1,7 @@
 """Page design: loads a report folder, draws the charts and writes the one-page A4 dashboard (HTML + PDF)."""
 from __future__ import annotations
 
+import base64
 import html
 import io
 import logging
@@ -24,6 +25,12 @@ from design import config as C  # noqa: E402
 from design import risk  # noqa: E402
 
 STYLE = C.DESIGN_DIR / "style.css"
+LOGO = C.DESIGN_DIR / "bif_logo.png"  # taken from BIF_Monthly_Report_Template_VF.pdf (page header)
+
+
+def logo_src() -> str:
+    """The BIF logo as a data URI, so the HTML and PDF stay single self-contained files."""
+    return "data:image/png;base64," + base64.b64encode(LOGO.read_bytes()).decode("ascii")
 
 # Chart palette (CVD-safe pair + neutral)
 INK, MUTED, GRID = "#0B2160", "#6B7A90", "#E6E9EF"
@@ -392,10 +399,10 @@ def page(d, com) -> str:
     return f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <title>BIF risk dashboard: report {d['n']} ({s.get('as_of')})</title><style>{STYLE.read_text(encoding="utf-8")}</style></head>
 <body><div class="page">
-<div class="hdr"><div class="logo"><b>BF</b><span>Bristol<br>Investment<br>Fund</span></div>
+<div class="hdr"><img class="logo" src="{logo_src()}" alt="Bristol Investment Fund">
 <div class="month">AS OF {day_mon(s.get('as_of'), year=True).upper()}</div></div>
 <div class="content">
-<div class="kicker">Risk</div><h1 class="title">Risk at a glance</h1>
+<div class="kicker">Risk</div><h1 class="title">Risk summary</h1>
 <div class="byline">{authors}</div>
 {kpis(d)}
 {editorial(com)}

@@ -57,6 +57,9 @@
   Old static mockups: `dashboard testing/mockups/risk_dashboard_mockup.html`.
 
 ## Done
+- 2026-11-07 (mac) Dashboard header now uses the real BIF logo (`reports/dashboard/design/bif_logo.png`, taken
+  from BIF_Monthly_Report_Template_VF.pdf, embedded as a data URI) instead of the CSS "BF" imitation. Title
+  renamed "Risk at a glance" -> "Risk summary". Preview and report 0 rebuilt.
 - 2026-11-07 (mac) NAV from start capital: `fund_capital.csv` (date,amount) -> NAV = capital + daily P&L from
   end-of-day holdings, cash = NAV - holdings (`risk.fund_pnl`, `risk.nav_from_capital`). Tested on synthetic
   data only; first real run is the report 0 re-pull above. Empty template created in OneDrive (gitignored).

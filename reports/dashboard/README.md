@@ -1,6 +1,6 @@
 # Risk dashboard
 
-The one-page A4 risk dashboard ("Risk at a glance"), published roughly monthly. Each
+The one-page A4 risk dashboard ("Risk summary"), published roughly monthly. Each
 publication is a numbered report folder: `report_00`, `report_01`, …
 
 ## Making a report

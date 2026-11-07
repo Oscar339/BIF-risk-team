@@ -12,9 +12,7 @@ body{margin:0;background:#C9CED8;font-family:Arial,Helvetica,sans-serif;color:va
 
 /* header */
 .hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:4mm}
-.logo{display:flex;align-items:center;gap:6px;font-family:Georgia,serif;color:#111}
-.logo b{font-size:20px;letter-spacing:-2px}
-.logo span{font-size:6px;line-height:1.25;border-left:1px solid #999;padding-left:5px;letter-spacing:.12em}
+.logo{display:block;height:9mm;width:auto}  /* same size as the Monthly Research Review page header */
 .month{font-size:10px;color:var(--muted)}
 .kicker{color:var(--teal);font-weight:bold;font-size:10px;letter-spacing:.04em;text-transform:uppercase;margin:0 0 1px}
 h1.title{color:var(--navy);font-size:28px;margin:0 0 2px;letter-spacing:-.5px}
