@@ -24,8 +24,9 @@
   No git installed on this PC.
 
 ## Requests
-- [ ] 2026-11-07 for: bloomberg (from: mac) Once Oscar has the fund's start capital (from fund leadership) in
-  `members/oscar-butler/dashboard testing/data/fund_capital.csv` (`date,amount`): re-pull report 0 with
+- [ ] 2026-11-07 for: bloomberg (from: mac) Start capital is now in
+  `members/oscar-butler/dashboard testing/data/fund_capital.csv` (filled 2026-11-07, OneDrive only; start
+  date assumed 2026-10-01, check with fund leadership). Re-pull report 0 with
   `python reports/dashboard/pull_data.py 0 --force`. The log should say "Capital from ..." and NAV source
   "start capital + P&L since inception". Check cash looks sensible (it is printed as % NAV on the page).
 - [ ] 2026-11-07 for: either (from: bloomberg) Write report_00 commentary in
@@ -41,6 +42,8 @@
   (C. Hook = CIO, S. Dominguez = Chairman).
 
 ## Notes
+- 2026-11-07 (mac) Open question for fund leadership: per-team capital × 8 doesn't match the stated fund
+  total (amounts in fund_capital.csv only, never here). Team limits use NAV/8 meanwhile.
 - 2026-11-06 (mac) Bloomberg-PC commits 955a43b/00b7bb9 were never pushed; rebuilt on the Mac
   with dummy cash figures in the README example (originals possibly real) and pushed. Never put
   real cash/NAV figures in tracked files: the repo is public. Oscar to confirm whether the
