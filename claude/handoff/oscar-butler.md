@@ -13,7 +13,13 @@
   `report_XX/commentary.md` (any machine); design shared in `reports/dashboard/design/`. Arrows on tiles
   compare with the previous report (red = more risk). See `reports/dashboard/README.md`.
   report_00 pulled 2026-11-07 (10 holdings, all long; NAV = gross proxy, so net shows 100% and breaches
-  the 80% limit until cash is filled). LIMITS in `design/config.py` are the mockup values: confirm.
+  the 80% limit until cash is filled).
+- 2026-11-07 (mac) LIMITS now follow *BIF Fund & Investment Strategy 2026/27* (short ≤20% NAV, cash 5–10%
+  guide, position 5–20% of team NAV with team NAV = NAV/8, 5–10 names per team); old gross/net/VaR/10%
+  placeholders removed. Limits are computed at build time (page.load_report), so no re-pull needed.
+  Report 0: Special Situations position ~200% of team NAV and teams with 0 names breach (NAV still a proxy).
+  "5–10 active names" read as per team: confirm. Demo book (preview) is far outside the new limits and
+  its commentary mentions the old 200% gross limit: tidy when next changing the design.
 - Bloomberg PC venv recreated 2026-11-07 with uv + Python 3.13 (`%LOCALAPPDATA%\envs\bif-risk-team`).
   No git installed on this PC.
 

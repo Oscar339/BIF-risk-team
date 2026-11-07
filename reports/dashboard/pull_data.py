@@ -134,7 +134,7 @@ def pull(n: int, nav: float | None = None, force: bool = False) -> Path:
     positions[["security", "team", "mv", "risk_share_pct"]].to_csv(data / "positions.csv", index=False)
     R.var_contributions(pos_pnl).to_csv(data / "var_contribution.csv", index=False)
     hist_pnl.to_csv(data / "var_hist_pnl.csv")
-    R.check_limits(summary).to_csv(data / "limits.csv", index=False)
+    R.check_limits(summary, positions).to_csv(data / "limits.csv", index=False)
     (data / "warnings.txt").write_text("\n".join(warnings), encoding="utf-8")
 
     print(f"\nReport {n}, as of {today}. NAV £{nav:,.0f} ({nav_source})")

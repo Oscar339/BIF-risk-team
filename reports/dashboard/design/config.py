@@ -70,16 +70,22 @@ VAR_WINDOW = 5  # component VaR: average position P&L over 2*5+1 scenarios aroun
 MIN_DAYS_FOR_STATS = 60  # below this, drawdown is flagged as indicative
 
 # ---------------------------------------------------------------- mandate limits
-# {summary metric: (min, max)}, None = no bound.
-# TODO: confirm against the BIF risk policy. These are the working values from the mockup.
+# From "BIF Fund & Investment Strategy 2026/27" (portfolio construction table). Update here if the policy changes.
+# Capital is split equally across the 8 sector teams, so a team's NAV = fund NAV x TEAM_NAV_SHARE.
+# Weights may be changed during the year: if so, make this per team.
+TEAM_NAV_SHARE = 1 / 8
+# {metric: (min, max)}, None = no bound. Team metrics show the team furthest outside the range.
 LIMITS: dict[str, tuple[float | None, float | None]] = {
-    "gross_pct_nav": (None, 200),
-    "net_pct_nav": (-20, 80),
-    "largest_position_pct_nav": (None, 10),
-    "var_99_pct_nav": (None, 3),
+    "short_pct_nav": (None, 20),  # short exposure max 20% of NAV
+    "cash_pct_nav": (5, 10),  # cash about 5-10% of NAV (recommended)
+    "team_position_pct_team_nav": (5, 20),  # each position 5-20% of its sector team's NAV
+    "team_names": (5, 10),  # 5-10 active names per sector team
 }
-LIMIT_LABELS = {"gross_pct_nav": "Gross % NAV", "net_pct_nav": "Net % NAV",
-                "largest_position_pct_nav": "Largest position % NAV", "var_99_pct_nav": "1-day VaR99 % NAV"}
+GUIDES = {"cash_pct_nav"}  # recommended, not a rule: outside the range shows "Outside", not "Breach"
+LIMIT_LABELS = {"short_pct_nav": "Short % NAV", "cash_pct_nav": "Cash % NAV (guide)",
+                "team_position_pct_team_nav": "Position % team NAV", "team_names": "Names per team"}
+# Policy rules not checked automatically: market cap (nothing below $100M; below $500M needs Risk and CIO
+# review), max 30% in one subsector or theme, Sharpe ratio target above 1.0, emerging-markets FX/liquidity plan.
 
 # ---------------------------------------------------------------- headline tiles
 # (summary key, label, value format, delta unit, risk sense) where risk sense says which way is MORE risk:

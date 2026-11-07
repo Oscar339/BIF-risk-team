@@ -103,7 +103,12 @@ uses the current design, so old PDFs change if you rebuild them.
 
 ## Settings to keep up to date (`design/config.py`)
 
-- `LIMITS`: mandate limits. **TODO: confirm against the BIF risk policy.**
+- `LIMITS`: mandate limits, taken from *BIF Fund & Investment Strategy 2026/27*: short ≤ 20% NAV,
+  cash 5–10% NAV (a guide, so shown as "Outside" rather than "Breach"), each position 5–20% of its
+  team's NAV, 5–10 names per team. Team NAV = fund NAV × `TEAM_NAV_SHARE` (1/8, equal weighting).
+  Team rows show the team furthest outside the range. Limits are checked when the PDF is built, so
+  changing them and rebuilding updates old reports too. Not checked automatically: market cap, the
+  30% subsector/theme cap and the Sharpe target.
 - `SLEEVES` / `SLEEVE_TEAMS`: add new sleeves when they appear in PORT (Financials is still missing).
 - `INCEPTION`: start of the fund year (drawdown is measured from here).
 

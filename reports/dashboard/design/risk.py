@@ -153,15 +153,42 @@ def drawdown(hist_pos: pd.DataFrame, prices: pd.DataFrame, nav_today: float | No
             "max_drawdown_pct": 100 * float(dd.min()) if len(dd) else None}
 
 
-def check_limits(summary: dict) -> pd.DataFrame:
-    rows = []
+def _worst(v: pd.Series, lo, hi):
+    """The value furthest outside [lo, hi] and its label; if none is outside, the largest."""
+    if v.empty:
+        return None, None
+    k = v.idxmin() if lo is not None and v.min() < lo else v.idxmax()
+    return float(v[k]), k
+
+
+def limit_values(summary: dict, positions: pd.DataFrame) -> dict[str, tuple]:
+    """{limit metric: (value, where)}. Team checks cover sector teams that have a sleeve in PORT."""
+    nav, out = summary.get("nav"), {}
+    if not nav or positions.empty:
+        return out
+    out["short_pct_nav"] = (abs(float(100 * positions["mv"].clip(upper=0).sum() / nav)), None)
+    cash = summary.get("cash")
+    out["cash_pct_nav"] = (None if cash is None else 100 * cash / nav, None)
+    teams = [t for t in C.REPORT_TEAMS if t in set(C.SLEEVE_TEAMS.values())]
+    p = positions[positions["team"].isin(teams) & (positions["mv"].abs() > 0)]
+    sizes = 100 * p["mv"].abs() / (nav * C.TEAM_NAV_SHARE)
+    lo, hi = C.LIMITS.get("team_position_pct_team_nav", (None, None))
+    v, i = _worst(sizes.reset_index(drop=True), lo, hi)
+    out["team_position_pct_team_nav"] = (v, None if i is None else p["team"].iloc[i])
+    names = p.groupby("team")["security"].nunique().reindex(teams, fill_value=0).astype(float)
+    out["team_names"] = _worst(names, *C.LIMITS.get("team_names", (None, None)))
+    return out
+
+
+def check_limits(summary: dict, positions: pd.DataFrame) -> pd.DataFrame:
+    vals, rows = limit_values(summary, positions), []
     for k, (lo, hi) in C.LIMITS.items():
-        v = summary.get(k)
+        v, where = vals.get(k, (None, None))
         if v is None or (isinstance(v, float) and np.isnan(v)):
             status = "NO DATA"
         elif (lo is not None and v < lo) or (hi is not None and v > hi):
-            status = "BREACH"
+            status = "OUTSIDE" if k in C.GUIDES else "BREACH"
         else:
             status = "OK"
-        rows.append({"metric": k, "value": v, "min": lo, "max": hi, "status": status})
-    return pd.DataFrame(rows, columns=["metric", "value", "min", "max", "status"])
+        rows.append({"metric": k, "value": v, "where": where, "min": lo, "max": hi, "status": status})
+    return pd.DataFrame(rows, columns=["metric", "value", "where", "min", "max", "status"])

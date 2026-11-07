@@ -75,7 +75,8 @@ def load_report(n: int) -> dict:
         return pd.read_csv(f) if f.exists() else pd.DataFrame()
 
     d = {"n": n, "summary": read_summary(rdir), "positions": rd("positions"), "var_contrib": rd("var_contribution"),
-         "var": rd("var_hist_pnl"), "limits": rd("limits")}
+         "var": rd("var_hist_pnl")}
+    d["limits"] = risk.check_limits(d["summary"], d["positions"])  # from current config, so policy changes apply on rebuild
     earlier = [(m, p) for m, p in reports_with_data() if m < n]
     if earlier:
         m, p = earlier[-1]
@@ -295,20 +296,22 @@ def mandate(d) -> str:
     lim = d["limits"]
     if lim.empty or "value" not in lim.columns:
         return '<p class="ph">Risk limits not set: add them to LIMITS in design/config.py.</p>'
+    badge = {"BREACH": '<span class="badge b-breach">▲ Breach</span>',
+             "OUTSIDE": '<span class="badge b-watch">● Outside</span>',
+             "NO DATA": '<span class="badge b-watch">No data</span>'}
     rows = []
     for r in lim.itertuples():
         lo = None if pd.isna(r.min) else float(r.min)
         hi = None if pd.isna(r.max) else float(r.max)
-        if pd.isna(r.value):
-            st, val = '<span class="badge b-watch">No data</span>', "N/A"
-        else:
-            breach = (lo is not None and r.value < lo) or (hi is not None and r.value > hi)
-            near = not breach and hi is not None and r.value > 0.9 * hi
-            st = ('<span class="badge b-breach">▲ Breach</span>' if breach else
-                  '<span class="badge b-watch">● Near</span>' if near else '<span class="badge b-ok">✓ OK</span>')
-            val = f"{r.value:.1f}"
+        near = r.status == "OK" and hi is not None and r.value > 0.9 * hi
+        st = badge.get(r.status) or ('<span class="badge b-watch">● Near</span>' if near else '<span class="badge b-ok">✓ OK</span>')
+        val = "N/A" if pd.isna(r.value) else f"{r.value:.0f}" if r.metric == "team_names" else f"{r.value:.1f}"
+        where = getattr(r, "where", None)
+        label = html.escape(C.LIMIT_LABELS.get(r.metric, r.metric))
+        if isinstance(where, str) and where:
+            label += f' <span class="src">· {html.escape(where)}</span>'
         bound = " to ".join(f"{x:g}" for x in (lo, hi) if x is not None)
-        rows.append(f'<tr><td>{C.LIMIT_LABELS.get(r.metric, r.metric)}</td><td class="n">{val}</td>'
+        rows.append(f'<tr><td>{label}</td><td class="n">{val}</td>'
                     f'<td class="n">{"≤ " if lo is None else "≥ " if hi is None else ""}{bound}</td><td>{st}</td></tr>')
     return ('<table class="mt"><tr><th>Limit</th><th class="n">Actual</th><th class="n">Limit</th><th>Status</th></tr>'
             + "".join(rows) + "</table>")
@@ -351,7 +354,7 @@ def method_note(d) -> str:
     notes = [f"Data: Bloomberg PORT and prices to {s.get('as_of')}, {s.get('base_ccy', 'GBP')}. VaR/ES: historical "
              f"simulation, today's holdings over {s.get('var_history_days', '?')} days; contributions scaled to sum to VaR. "
              f"Ex-ante vol: {C.COV_WINDOW}-day covariance. Beta and factors: {C.BETA_WEEKS}-week regressions. "
-             f"Team figures % of fund NAV."]
+             f"Team figures % of fund NAV; team limits use team NAV = fund NAV / {1 / C.TEAM_NAV_SHARE:g}."]
     if str(s.get("nav_source", "")).startswith("proxy"):
         notes.append("NAV excludes cash, so % NAV figures are % of gross.")
     if (s.get("perf_days") or 0) < C.MIN_DAYS_FOR_STATS:
@@ -487,7 +490,7 @@ def demo_data() -> dict:
                "var_99_gbp": -q99, "var_99_pct_nav": -q99 / nav * 100, "var_95_pct_nav": -q95 / nav * 100,
                "es_99_pct_nav": -port[port <= q99].mean() / nav * 100, "var_history_days": len(port),
                "current_drawdown_pct": -2.4, "max_drawdown_pct": -5.9, "perf_days": 42}
-    lim = risk.check_limits(summary)
+    lim = risk.check_limits(summary, pos)
     prev = dict(summary, as_of="2026-10-31", var_99_pct_nav=summary["var_99_pct_nav"] - 0.21,
                 es_99_pct_nav=summary["es_99_pct_nav"] + 0.3, ex_ante_vol_pct=10.9, beta=beta - 0.03,
                 gross_pct_nav=summary["gross_pct_nav"] - 6.1, net_pct_nav=summary["net_pct_nav"] + 4.2,
