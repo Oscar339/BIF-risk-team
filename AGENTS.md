@@ -9,7 +9,8 @@ Shared by every team member who uses Codex. Personal instructions go in
 - Layout: `members/<first-last>/` personal work, `infrastructure/` shared code,
   `reports/` finished write-ups, `claude/` hand-over notes between sessions.
 - The repo lives in each person's University OneDrive and is also on GitHub
-  (https://github.com/Oscar339/BIF-risk-team, **private**, team collaborators only).
+  (https://github.com/Oscar339/BIF-risk-team). It is **currently public** (meant to be
+  private): until that changes, treat every commit as public, so no holdings, NAV or position sizes.
 
 ## Rules
 - **Never commit credentials or raw Bloomberg output** (Bloomberg's licence limits

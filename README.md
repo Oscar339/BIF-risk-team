@@ -7,7 +7,8 @@ Working folder for the BIF risk team.
 - `reports/` finished team reports
 - `claude/` hand-over notes for Claude Code sessions (see `claude/README.md`)
 
-> **This repository is private** (team collaborators only). Never commit passwords or API keys.
+> **This repository is currently public** (it is meant to become private). Until then, treat
+> every commit as public: no holdings, NAV or position sizes. Never commit passwords or API keys.
 > Raw Bloomberg output (`data/` folders, price and holdings pulls) stays out of git, in OneDrive
 > only, because Bloomberg's licence limits redistribution. Report drafts, planning notes and the
 > thematic pieces' `results/` are committed; other `results/` folders are still gitignored
@@ -31,7 +32,7 @@ git clone https://github.com/Oscar339/BIF-risk-team.git BIF-risk-team-git
 ```
 
 The folder name `BIF-risk-team-git` marks it as the git copy; shared data lives elsewhere
-(see below). The repo is private, so the first `git clone` or `git push`
+(see below). The first `git push`
 opens a browser window to log in to GitHub. You need to have accepted the collaborator invite first.
 
 ## Shared data folder

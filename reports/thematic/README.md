@@ -21,7 +21,8 @@ thematic/<piece>/
 The finished pages and charts go into the report they are published in:
 `reports/dashboard/report_XX/pages.md` and `report_XX/figures/`.
 
-Everything is committed to GitHub (private repo) except `data/`. Raw Bloomberg pulls that
+Everything is committed to GitHub except `data/` (the repo is currently public, so no BIF
+holdings, NAV or position sizes). Raw Bloomberg pulls that
 the other team needs go in the shared OneDrive data folder (see the root README).
 
 ## Pieces
