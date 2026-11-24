@@ -14,9 +14,11 @@ Shared by every team member who uses Codex. Personal instructions go in
 
 ## Rules
 - **Never commit credentials or raw Bloomberg output** (Bloomberg's licence limits
-  redistribution). `data/` folders are gitignored and stay in OneDrive. Report working
-  files (drafts, planning, task tables under `reportN/ai-thematic/work/`) are committed;
-  `results/` folders are still gitignored because they hold Bloomberg prices and holdings.
+  redistribution). `data/` folders are gitignored and stay in OneDrive. `results/`
+  folders are gitignored too (Bloomberg prices and holdings).
+- **OneDrive is the base, GitHub is for code.** Report documents (Word), to-do lists, result
+  tables, charts and raw Bloomberg exports live in the shared OneDrive folder
+  `BIF-risk-team-shared-data/` (e.g. `report0/`). The repo holds code, baskets and READMEs.
 - Only edit the current user's own `members/` folder unless asked. Ask before changing
   `infrastructure/` or another member's folder.
 - `main` is protected against force-push and deletion. Never rewrite pushed history.

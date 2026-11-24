@@ -1,7 +1,8 @@
-# AI supply chain as a thematic risk: method and files
+# AI supply chain as a thematic risk: method and code
 
-The work behind sections 1 and 2 of [report 0](../README.md). The text itself goes in
-[`../report.md`](../report.md). Each task has a folder under [`work/`](work/) with its own README.
+The code and the shared basket behind sections 1 and 2 of [report 0](../README.md). Everything
+else (the report itself, to-do lists, results, charts, Bloomberg data) is in the shared OneDrive
+folder `BIF-risk-team-shared-data/report0/`. Start with `START HERE.docx` there.
 
 Team 1: Baily, Johnny, Alex, Dom. Team 2: Guiseppe, Bea, Alexia.
 
@@ -24,11 +25,20 @@ Team 1: Baily, Johnny, Alex, Dom. Team 2: Guiseppe, Bea, Alexia.
 - `benchmark.csv`: S&P 500 ex-AI tickers (Team 1 adds it; tickers only, no weights or prices).
 - `code/`: shared code. Name scripts by what they do (`basket_correlations.py`, `shocks.py`).
   `code/team1_backing_calcs.py` is Team 1's script behind their 23 Nov deck (Yahoo): the starting point.
-  Scripts read raw prices from the shared OneDrive folder and write tables to the task's `work/` folder.
-- `figures/`: charts used in `report.md`, named `fig_<section>_<name>.png`.
-- `work/<task>/`: one folder per task: its README (what to do, inputs, outputs, which section it
-  feeds), result tables (CSV) and working notes.
-- `drafts/team-1/`, `drafts/team-2/`: the teams' 23 Nov drafts (reference only).
-- `planning/`: the 16 Nov briefing and the team to-do lists (`planning/team_todo_lists.md`).
-- Raw Bloomberg exports: shared OneDrive folder `BIF-risk-team-shared-data/ai-supply-chain/bloomberg/`,
-  never in the repo (Bloomberg licence, and the repo is public).
+
+## Where code reads and writes
+
+Scripts read raw Bloomberg exports from, and write results to, the shared OneDrive folder, never
+the repo. Its path differs per person, so scripts take it from the `BIF_SHARED` environment
+variable (the path to your `BIF-risk-team-shared-data` folder or shortcut), for example:
+
+```python
+import os
+from pathlib import Path
+SHARED = Path(os.environ["BIF_SHARED"]) / "report0"
+prices = SHARED / "bloomberg" / "basket_prices_20261125.csv"   # input
+out = SHARED / "work" / "t1-b-correlation"                       # tables
+figs = SHARED / "figures"                                        # charts, fig_<section>_<name>.png
+```
+
+The repo is public: never commit BIF holdings, NAV, position sizes or raw Bloomberg data.

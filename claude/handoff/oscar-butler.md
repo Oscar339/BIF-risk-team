@@ -63,6 +63,10 @@
   Old static mockups: `dashboard testing/mockups/risk_dashboard_mockup.html`.
 
 ## Done
+- 2026-11-24 (cloud session) Oscar: OneDrive is the base, GitHub for code. Report 0 work moved to OneDrive
+  `Documents/BIF-risk-team-shared-data/report0/` (START HERE.docx, Report 0.docx, To-do lists.docx, work/<task>/,
+  figures/, bloomberg/, drafts/, planning/), shared with the analysts. Repo keeps `reports/report0/` README,
+  commentary.md and `ai-thematic/` (basket, code, method). Scripts use env var BIF_SHARED.
 - 2026-11-24 (cloud session) Moved: dashboard code `reports/dashboard/` -> `infrastructure/dashboard/`; report
   folders `reports/dashboard/report_00` -> `reports/report0` (naming `report<n>`, PDF `risk_dashboard_report<n>.pdf`,
   `metrics_history.csv` now in `reports/`). Demo and report 0 builds tested OK in the cloud.

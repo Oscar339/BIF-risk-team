@@ -154,9 +154,8 @@ infrastructure/dashboard/
 reports/
   metrics_history.csv   headline numbers of every report (rebuilt on each build, OneDrive only)
   report0/              one folder per publication: report0, report1, ...
-    README.md           start here: who does what for this report (committed)
-    report.md           the whole report in one working draft, all sections (committed)
-    ai-thematic/        work behind a thematic piece: basket, code, task folders (committed)
+    README.md           points to the report's OneDrive folder (committed)
+    ai-thematic/        code and basket behind a thematic piece (committed)
     commentary.md       <- you write here: dashboard text (committed)
     pages.md            <- you write here: free pages R2+ (OneDrive only)
     figures/            charts for pages.md (OneDrive only)
