@@ -18,7 +18,7 @@ Repo: https://github.com/Oscar339/BIF-risk-team. Everything is in `reports/thema
 | This to-do list | `planning/team_todo_lists.md` | As set up by Oscar |
 | **Raw Bloomberg pulls** (prices, index weights, SPLC exports) | OneDrive: `Documents/BIF-risk-team-shared-data/ai-supply-chain/bloomberg/` | **No, never commit these** |
 
-House rules: commit only public-company information and nothing about BIF holdings or NAV. Raw Bloomberg exports (prices, weights, SPLC) stay in the shared OneDrive folder. Derived results go in `results/`, and the numbers you quote go into `draft.md`.
+**This repo is public: treat every commit as public.** Commit only public-company information, and never BIF holdings, NAV or position sizes. Raw Bloomberg exports (prices, weights, SPLC) stay in the shared OneDrive folder. Derived results go in `results/`, and the numbers you quote go into `draft.md`.
 
 How to work: pull the repo, export from Bloomberg into the shared OneDrive `bloomberg/` folder, run the shared code (it reads from there), save tables to `results/` and charts to `figures/`, write your text into your subsections of `draft.md`, and update each subsection's "Lead / Status" line (Not started / Drafting / Ready for review).
 
