@@ -4,7 +4,7 @@ Working folder for the BIF risk team.
 
 - `members/<first-last>/` each person's individual research space (`code/`, `notebooks/`, `data/`, `results/`)
 - `infrastructure/` shared code, utilities and setup used by everyone
-- `reports/` team reports. **Working on report 0? Start at [`reports/dashboard/report_00/README.md`](reports/dashboard/report_00/README.md).**
+- `reports/` team reports. **Working on report 0? Start at [`reports/report0/README.md`](reports/report0/README.md).**
 - `claude/` hand-over notes for Claude Code sessions (see `claude/README.md`)
 
 > **This repository is currently public** (it is meant to become private). Until then, treat

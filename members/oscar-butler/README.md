@@ -33,6 +33,6 @@ date,cash
 
 ### TODO: to be filled out
 
-- [x] **Risk limits.** Done in the published dashboard (`reports/dashboard/design/config.py`), from the 2026/27 Fund & Investment Strategy.
-- [ ] **Fund capital.** The fund is simulated, so there is no real cash balance. Put the start capital in `data/fund_capital.csv` (`date,amount`, e.g. `2026-10-01,10000000`); the published dashboard (`reports/dashboard/pull_data.py`) then sets NAV = capital + P&L since inception and cash = NAV − holdings. `dashboard_v2.py` still uses `fund_cash.csv`.
+- [x] **Risk limits.** Done in the published dashboard (`infrastructure/dashboard/design/config.py`), from the 2026/27 Fund & Investment Strategy.
+- [ ] **Fund capital.** The fund is simulated, so there is no real cash balance. Put the start capital in `data/fund_capital.csv` (`date,amount`, e.g. `2026-10-01,10000000`); the published dashboard (`infrastructure/dashboard/pull_data.py`) then sets NAV = capital + P&L since inception and cash = NAV − holdings. `dashboard_v2.py` still uses `fund_cash.csv`.
 - [ ] **Short borrow cost.** Not available through the Bloomberg API; needs another source (SECF or the prime broker) once the fund has shorts.

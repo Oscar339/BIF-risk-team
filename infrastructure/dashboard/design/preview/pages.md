@@ -1,6 +1,6 @@
 # Risk pages: design preview
 
-Invented example showing what the free pages can hold. Real reports use report_XX/pages.md.
+Invented example showing what the free pages can hold. Real reports use reportN/pages.md.
 
 # page
 kicker: Stress test

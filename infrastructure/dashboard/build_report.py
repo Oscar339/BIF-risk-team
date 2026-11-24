@@ -3,13 +3,13 @@
 No Bloomberg needed, so this runs on any machine (Mac or Windows).
 
 Usage (from the repo folder):
-    python reports/dashboard/build_report.py        # latest report
-    python reports/dashboard/build_report.py 3      # report_03
-    python reports/dashboard/build_report.py --demo # invented data -> design/preview/, for design changes
+    python infrastructure/dashboard/build_report.py        # latest report
+    python infrastructure/dashboard/build_report.py 3      # report3
+    python infrastructure/dashboard/build_report.py --demo # invented data -> design/preview/, for design changes
 
-Reads  report_XX/data/ (from pull_data.py), report_XX/commentary.md (dashboard, R1) and
-       report_XX/pages.md + report_XX/figures/ (free pages R2, R3, ...)
-Writes report_XX/risk_dashboard_report_XX.pdf (+ .html), all pages in one file, and metrics_history.csv
+Reads  reportN/data/ (from pull_data.py), reportN/commentary.md (dashboard, R1) and
+       reportN/pages.md + reportN/figures/ (free pages R2, R3, ...)
+Writes reportN/risk_dashboard_reportN.pdf (+ .html), all pages in one file, and metrics_history.csv
 """
 from __future__ import annotations
 
@@ -37,7 +37,7 @@ def build(n: int | None = None, demo: bool = False) -> Path:
                 raise SystemExit("No report has data yet. Run pull_data.py on the Bloomberg PC first.")
             n = done[-1][0]
         d, com, out = P.load_report(n), P.load_commentary(n), P.report_dir(n)
-        stem = f"risk_dashboard_report_{n:02d}"
+        stem = f"risk_dashboard_report{n}"
         pages_file = FP.ensure_pages(out, n)
     out.mkdir(parents=True, exist_ok=True)
     warn: list[str] = []

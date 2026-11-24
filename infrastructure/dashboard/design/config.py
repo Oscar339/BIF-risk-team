@@ -4,24 +4,26 @@ from __future__ import annotations
 import datetime as dt
 from pathlib import Path
 
-DASHBOARD_DIR = Path(__file__).resolve().parents[1]  # reports/dashboard
+DASHBOARD_DIR = Path(__file__).resolve().parents[1]  # infrastructure/dashboard (code and design)
+REPO_DIR = DASHBOARD_DIR.parents[1]
+REPORTS_DIR = REPO_DIR / "reports"  # one folder per publication: reports/report0, reports/report1, ...
 DESIGN_DIR = DASHBOARD_DIR / "design"
 PREVIEW_DIR = DESIGN_DIR / "preview"
-HISTORY_FILE = DASHBOARD_DIR / "metrics_history.csv"  # gitignored; rebuilt from the report folders on every build
+HISTORY_FILE = REPORTS_DIR / "metrics_history.csv"  # gitignored; rebuilt from the report folders on every build
 
 # Fund capital (date,amount): the start capital, plus a row for any later top-up (+) or withdrawal (-).
 # NAV = capital + P&L since inception, and cash = NAV - holdings. Kept in OneDrive, never git.
 # Used ahead of the cash file below. The first file that exists is used.
 CAPITAL_FILES = [
     DASHBOARD_DIR / "data" / "fund_capital.csv",
-    DASHBOARD_DIR.parents[1] / "members" / "oscar-butler" / "dashboard testing" / "data" / "fund_capital.csv",
+    REPO_DIR / "members" / "oscar-butler" / "dashboard testing" / "data" / "fund_capital.csv",
 ]
 
 # Fund cash balances (date,cash; one row whenever cash changes). Kept in OneDrive, never git.
 # The first file that exists is used.
 CASH_FILES = [
     DASHBOARD_DIR / "data" / "fund_cash.csv",
-    DASHBOARD_DIR.parents[1] / "members" / "oscar-butler" / "dashboard testing" / "data" / "fund_cash.csv",
+    REPO_DIR / "members" / "oscar-butler" / "dashboard testing" / "data" / "fund_cash.csv",
 ]
 
 # ---------------------------------------------------------------- portfolio (Bloomberg PORT)

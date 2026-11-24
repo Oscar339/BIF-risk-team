@@ -16,14 +16,14 @@ sizes, or raw Bloomberg exports. Public-company information and numbers you deri
 [`report.md`](report.md) is **the report**: one document with every section. Each section names
 its lead and status. When every section 1.1-2.6 says "Ready for review", we have a full draft
 apart from our recommendations (section 3, written last). Oscar then cuts it into the printed
-pages (`pages.md`, built with `python reports/dashboard/build_report.py 0`).
+pages (`pages.md`, built with `python infrastructure/dashboard/build_report.py 0`).
 
 Team 1: Baily, Johnny, Alex, Dom. Team 2: Guiseppe, Bea, Alexia.
 
 ## Where to work
 
 ```
-report_00/
+report0/
   README.md                 this page
   report.md                 THE REPORT: write your sections here
   commentary.md             dashboard text (R1)

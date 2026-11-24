@@ -1,6 +1,7 @@
 ﻿# Reports
 
-Finished team reports and write-ups.
+One folder per monthly report: `report0`, `report1`, … Each holds the report's text, the work
+behind it and (OneDrive only) its data and PDF. The code that builds them is in
+[`../infrastructure/dashboard/`](../infrastructure/dashboard/README.md).
 
-- [dashboard/](dashboard/README.md): monthly one-page risk dashboard (pull → PDF → commentary).
-- [dashboard/report_00/](dashboard/report_00/README.md): **report 0** (November 2026 issue, out 7 Dec): start here. Dashboard plus the AI supply chain thematic piece.
+- [report0/](report0/README.md): **report 0** (November 2026 issue, out 7 Dec): start here. Dashboard plus the AI supply chain thematic piece.

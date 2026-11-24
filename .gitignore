@@ -2,12 +2,12 @@
 data/
 results/
 # Risk dashboard outputs contain holdings (commentary.md and design/preview/ are committed)
-reports/dashboard/report_*/*.pdf
-reports/dashboard/report_*/*.html
-reports/dashboard/metrics_history.csv
+reports/report*/*.pdf
+reports/report*/*.html
+reports/metrics_history.csv
 # Free risk pages (R2+) may name holdings: OneDrive only (design/preview/ examples are committed)
-reports/dashboard/report_*/pages.md
-reports/dashboard/report_*/figures/
+reports/report*/pages.md
+reports/report*/figures/
 # Environments and caches
 .venv/
 __pycache__/

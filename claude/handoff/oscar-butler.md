@@ -8,10 +8,10 @@
   short borrow cost.
 - GitHub repo set up 2026-11-06 from the Mac. Git login on the Bloomberg PC not yet working.
 
-- 2026-11-07 (bloomberg) Published dashboard pipeline now lives in `reports/dashboard/` (onebox layout
-  chosen). `pull_data.py <n>` (Bloomberg) -> `report_XX/data/` + PDF; `build_report.py [n]` rebuilds from
-  `report_XX/commentary.md` (any machine); design shared in `reports/dashboard/design/`. Arrows on tiles
-  compare with the previous report (red = more risk). See `reports/dashboard/README.md`.
+- 2026-11-24 Dashboard pipeline code lives in `infrastructure/dashboard/` (onebox layout). `pull_data.py <n>`
+  (Bloomberg) -> `reports/report<n>/data/` + PDF; `build_report.py [n]` rebuilds from
+  `reports/report<n>/commentary.md` (any machine); design in `infrastructure/dashboard/design/`. Arrows on tiles
+  compare with the previous report (red = more risk). See `infrastructure/dashboard/README.md`.
   report_00 pulled 2026-11-07 (10 holdings, all long; NAV = gross proxy, so net shows 100% and breaches
   the 80% limit until cash is filled).
 - 2026-11-07 (mac) LIMITS now follow *BIF Fund & Investment Strategy 2026/27* (short ≤20% NAV, cash 5–10%
@@ -27,10 +27,10 @@
 - [ ] 2026-11-07 for: bloomberg (from: mac) Start capital is now in
   `members/oscar-butler/dashboard testing/data/fund_capital.csv` (filled 2026-11-07, OneDrive only; start
   date assumed 2026-10-01, check with fund leadership). Re-pull report 0 with
-  `python reports/dashboard/pull_data.py 0 --force`. The log should say "Capital from ..." and NAV source
+  `python infrastructure/dashboard/pull_data.py 0 --force`. The log should say "Capital from ..." and NAV source
   "start capital + P&L since inception". Check cash looks sensible (it is printed as % NAV on the page).
-- [ ] 2026-11-07 for: either (from: bloomberg) Write report_00 commentary in
-  `reports/dashboard/report_00/commentary.md`, then `python reports/dashboard/build_report.py 0`.
+- [ ] 2026-11-07 for: either (from: bloomberg) Write report 0 commentary in
+  `reports/report0/commentary.md`, then `python infrastructure/dashboard/build_report.py 0`.
 - [ ] 2026-11-06 for: bloomberg (from: mac) Once GitHub works on this PC: `git pull`, check
   `git status` is clean and `git log` shows "Add Claude hand-over setup", then do a test
   `git push` (e.g. tick this request off). Note here if anything failed.
@@ -63,7 +63,10 @@
   Old static mockups: `dashboard testing/mockups/risk_dashboard_mockup.html`.
 
 ## Done
-- 2026-11-24 (cloud session) Everything for report 0 now lives in `reports/dashboard/report_00/`:
+- 2026-11-24 (cloud session) Moved: dashboard code `reports/dashboard/` -> `infrastructure/dashboard/`; report
+  folders `reports/dashboard/report_00` -> `reports/report0` (naming `report<n>`, PDF `risk_dashboard_report<n>.pdf`,
+  `metrics_history.csv` now in `reports/`). Demo and report 0 builds tested OK in the cloud.
+- 2026-11-24 (cloud session) Everything for report 0 now lives in its report folder (now `reports/report0/`):
   `README.md` (start here), `report.md` (whole report, one working draft), `ai-thematic/` (method README,
   basket, code, figures, `work/<task>/` folder per task with instructions, drafts, planning). Replaces
   `reports/thematic/`. Repo is still public; raw Bloomberg goes in OneDrive `BIF-risk-team-shared-data/`.

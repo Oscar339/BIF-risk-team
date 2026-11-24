@@ -3,14 +3,14 @@
 Run on a Bloomberg PC with the Terminal open and logged in.
 
 Usage (from the repo folder):
-    python reports/dashboard/pull_data.py 0              # report_00
-    python reports/dashboard/pull_data.py 1 --nav 3000000
-    python reports/dashboard/pull_data.py 1 --force      # re-pull a report that already has data
+    python infrastructure/dashboard/pull_data.py 0              # report0
+    python infrastructure/dashboard/pull_data.py 1 --nav 3000000
+    python infrastructure/dashboard/pull_data.py 1 --force      # re-pull a report that already has data
 
 Pulls only what the dashboard page uses: current fund and sleeve holdings, daily holdings since
 inception (for drawdown), GBP prices for the holdings, MSCI World and its factor indices, and
-US/UK 10y yields. Writes report_XX/data/ (gitignored, contains holdings), creates
-report_XX/commentary.md if needed and builds the PDF.
+US/UK 10y yields. Writes reportN/data/ (gitignored, contains holdings), creates
+reportN/commentary.md if needed and builds the PDF.
 
 NAV: PORT holds no cash, so NAV = holdings + cash from data/fund_cash.csv (see design/config.py),
 or --nav. With neither, % of NAV figures use gross market value (flagged on the page).
@@ -173,7 +173,7 @@ def pull(n: int, nav: float | None = None, force: bool = False) -> Path:
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("report", type=int, help="Report number, e.g. 0 for report_00 (use the next unused number)")
+    ap.add_argument("report", type=int, help="Report number, e.g. 0 for report0 (use the next unused number)")
     ap.add_argument("--nav", type=float, help="Fund NAV in GBP including cash (overrides fund_cash.csv)")
     ap.add_argument("--force", action="store_true", help="Overwrite this report's existing data")
     a = ap.parse_args()

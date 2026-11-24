@@ -54,17 +54,17 @@ COMMENTARY_SECTIONS = {
 
 # ---------------------------------------------------------------- report folders
 def report_dir(n: int) -> Path:
-    return C.DASHBOARD_DIR / f"report_{n:02d}"
+    return C.REPORTS_DIR / f"report{n}"
 
 
 def report_number(p: Path) -> int | None:
-    m = re.fullmatch(r"report_(\d+)", p.name)
+    m = re.fullmatch(r"report(\d+)", p.name)
     return int(m.group(1)) if m else None
 
 
 def reports_with_data() -> list[tuple[int, Path]]:
     """All report folders that have pulled data, in order."""
-    out = [(report_number(p), p) for p in C.DASHBOARD_DIR.iterdir() if p.is_dir() and report_number(p) is not None]
+    out = [(report_number(p), p) for p in C.REPORTS_DIR.iterdir() if p.is_dir() and report_number(p) is not None]
     return sorted((n, p) for n, p in out if (p / "data" / "summary.json").exists())
 
 
@@ -98,7 +98,7 @@ def commentary_template(n: int) -> str:
     return (f"# Risk dashboard commentary: report {n}\n\n"
             "Write under each heading below (replace nothing, just type under the grey comment), save, then\n"
             "rebuild the PDF from the repo folder:\n\n"
-            f"    python reports/dashboard/build_report.py {n}\n\n"
+            f"    python infrastructure/dashboard/build_report.py {n}\n\n"
             "Empty sections show a grey placeholder on the PDF.\n\n"
             "PUBLIC REPO: this file is committed to GitHub. Do not name holdings or give position sizes,\n"
             "NAV or £ amounts here. Teams, sectors, themes and % risk figures are fine.\n\n"

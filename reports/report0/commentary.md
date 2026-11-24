@@ -3,7 +3,7 @@
 Write under each heading below (replace nothing, just type under the grey comment), save, then
 rebuild the PDF from the repo folder:
 
-    python reports/dashboard/build_report.py 0
+    python infrastructure/dashboard/build_report.py 0
 
 Empty sections show a grey placeholder on the PDF.
 

@@ -1,4 +1,7 @@
-# Risk dashboard and risk pages
+# Risk dashboard and risk pages: the build tools
+
+The code that pulls the data and builds each report's PDF. The reports themselves live in
+`reports/reportN/` (one folder per publication); this folder holds only code and design.
 
 The Risk team's pages in the BIF Monthly Research Review, published monthly (on the 7th, covering
 the previous month). One PDF per report:
@@ -6,7 +9,7 @@ the previous month). One PDF per report:
 - **R1**: the one-page A4 risk dashboard ("Risk summary"), built from the Bloomberg pull.
 - **R2, R3, ...**: free pages the Risk team fills each month (stress tests, modelling, advice to
   the teams, thematic pieces, a risk view of recent events), written in `pages.md`. Each
-publication is a numbered report folder: `report_00`, `report_01`, …
+publication is a numbered report folder: `report0`, `report1`, …
 
 ## Making a report
 
@@ -19,14 +22,14 @@ All commands run from the repo folder (`BIF/`). Python is the team venv, see the
 The Terminal must be open and logged in. Use the next unused report number:
 
 ```
-python reports/dashboard/pull_data.py 1
+python infrastructure/dashboard/pull_data.py 1
 ```
 
 This takes a few minutes. It pulls the holdings and prices, computes the risk numbers,
-saves them in `report_01/data/`, and **builds the PDF automatically**:
+saves them in `reports/report1/data/`, and **builds the PDF automatically**:
 
 ```
-reports/dashboard/report_01/risk_dashboard_report_01.pdf
+reports/report1/risk_dashboard_report1.pdf
 ```
 
 The PDF already has every number and chart. Only the commentary box is a grey placeholder.
@@ -46,7 +49,7 @@ figures use gross market value and the page says so. `--nav 3000000` overrides N
 
 ### 2. Write the commentary (any machine)
 
-Open **`reports/dashboard/report_01/commentary.md`**. It is the only file you edit. Type
+Open **`reports/report1/commentary.md`**. It is the only file you edit. Type
 under each heading:
 
 | Heading | What goes there |
@@ -59,7 +62,7 @@ The grey `<!-- ... -->` comments are hints and never appear on the PDF.
 
 ### 2b. Write the free pages (any machine)
 
-Open **`reports/dashboard/report_01/pages.md`** (created on the first build). Every `# page`
+Open **`reports/report1/pages.md`** (created on the first build). Every `# page`
 heading is one A4 page; the file starts with two (R2, R3). Add or delete `# page` sections as
 needed. Under each, set the header, then write anything:
 
@@ -72,7 +75,7 @@ sources: S01 Bloomberg prices to 30 Nov 2026. Shocks are assumptions, not foreca
 
 Plain paragraphs, **bold**, *italic*, ## sub-heading, ### small heading, - bullets, 1. numbers.
 | Markdown | table |            numbers right-align automatically
-![Title | subtitle | Source S01](my_chart.svg)      file in report_01/figures/; {height=60mm} after it to cap height
+![Title | subtitle | Source S01](my_chart.svg)      file in reports/report1/figures/; {height=60mm} after it to cap height
 > **Box title**                  beige box (start with "> !" on its own line for a blue box)
 > Box text
 ::: tiles                        number tiles, one per line: label | value | note
@@ -85,13 +88,13 @@ Note: small grey footnote
 The preview `design/preview/pages.md` is a full worked example (a stress test and a thematic page).
 
 Figures: make them however you like (PNG or SVG). For the house style from Python, run from
-`reports/dashboard/`:
+`infrastructure/dashboard/`:
 
 ```python
 from design.page import save_figure, INK, BLUE, AMBER, LIGHT, MUTED   # also sets fonts
 fig, ax = plt.subplots(figsize=(7.2, 2.4))   # 7.2in = full page width
 ...
-save_figure(fig, "report_01/figures/my_chart.svg")
+save_figure(fig, "../../reports/report1/figures/my_chart.svg")
 ```
 
 If a page has too much content, the build prints a warning and the PDF shows a red bar on that
@@ -104,7 +107,7 @@ fund's risk.
 ### 3. Rebuild the PDF (any machine, no Bloomberg needed)
 
 ```
-python reports/dashboard/build_report.py 1
+python infrastructure/dashboard/build_report.py 1
 ```
 
 Repeat steps 2 and 3 until it reads well. If the text overflows its box or page, the build warns
@@ -134,7 +137,7 @@ report's `data/`.
 ## Folder layout
 
 ```
-reports/dashboard/
+infrastructure/dashboard/
   pull_data.py          step 1, Bloomberg pull (then builds the PDF)
   build_report.py       step 3, rebuild the PDF from data + commentary
   design/               shared by every report: change the look here, once
@@ -145,7 +148,12 @@ reports/dashboard/
     risk.py             risk calculations
     bloomberg.py        Bloomberg API client
     preview/            demo pages with invented data (pages.md = worked example)
-  report_00/            one folder per publication
+```
+
+```
+reports/
+  metrics_history.csv   headline numbers of every report (rebuilt on each build, OneDrive only)
+  report0/              one folder per publication: report0, report1, ...
     README.md           start here: who does what for this report (committed)
     report.md           the whole report in one working draft, all sections (committed)
     ai-thematic/        work behind a thematic piece: basket, code, task folders (committed)
@@ -153,7 +161,7 @@ reports/dashboard/
     pages.md            <- you write here: free pages R2+ (OneDrive only)
     figures/            charts for pages.md (OneDrive only)
     data/               pulled data (OneDrive only)
-    risk_dashboard_report_00.pdf
+    risk_dashboard_report0.pdf
 ```
 
 ## Changing the design
@@ -161,7 +169,7 @@ reports/dashboard/
 Edit files in `design/`. Then preview with invented data (no Bloomberg, safe to commit):
 
 ```
-python reports/dashboard/build_report.py --demo
+python infrastructure/dashboard/build_report.py --demo
 ```
 
 The preview goes to `design/preview/risk_dashboard_preview.pdf`. Rebuilding an old report

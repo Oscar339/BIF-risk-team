@@ -15,7 +15,7 @@ Shared by every team member who uses Claude Code. Personal instructions go in
 ## Rules
 - **Never commit credentials or raw Bloomberg output** (Bloomberg's licence limits
   redistribution). `data/` folders are gitignored and stay in OneDrive. Report working
-  files (drafts, planning, task tables under `report_XX/ai-thematic/work/`) are committed;
+  files (drafts, planning, task tables under `reportN/ai-thematic/work/`) are committed;
   `results/` folders are still gitignored because they hold Bloomberg prices and holdings.
 - Only edit the current user's own `members/` folder unless asked. Ask before changing
   `infrastructure/` or another member's folder.

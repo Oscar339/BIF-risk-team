@@ -1,6 +1,6 @@
 """Free pages after the dashboard (R2, R3, ...): blank space the Risk team fills each month.
 
-Each report has `report_XX/pages.md`. Every `# page` heading starts a new A4 page. Under it, optional
+Each report has `reportN/pages.md`. Every `# page` heading starts a new A4 page. Under it, optional
 `key: value` lines set the header, then anything in the body:
 
     # page
@@ -15,7 +15,7 @@ Each report has `report_XX/pages.md`. Every `# page` heading starts a new A4 pag
     - bullet                           1. numbered
     > **Box title**                    (a beige box; "> !" for a blue box)
     > Box text
-    ![Figure 2 | Caption | Source S01](rates_shock.svg)   (file in report_XX/figures/)
+    ![Figure 2 | Caption | Source S01](rates_shock.svg)   (file in reportN/figures/)
     | Table | header |                 (Markdown table; numbers right-align)
     ::: tiles                          (number tiles, one per line: label | value | note)
     Fund impact | -4.2% NAV | £-126k
@@ -47,11 +47,11 @@ Free pages after the dashboard. Fill them with whatever this month needs: a stre
 advice to the teams, a thematic piece, or a risk view of recent events (leave market narrative to
 Investment Reporting). Then rebuild:
 
-    python reports/dashboard/build_report.py {n}
+    python infrastructure/dashboard/build_report.py {n}
 
 Every "# page" heading starts a new A4 page (R2, R3, ...). If a page overflows, the PDF shows a red
-warning bar and the build says so: cut text or shrink a figure. Figures go in report_{n:02d}/figures/.
-Formatting cheat sheet: top of reports/dashboard/design/pages.py, or the preview pages.md.
+warning bar and the build says so: cut text or shrink a figure. Figures go in report{n}/figures/.
+Formatting cheat sheet: top of infrastructure/dashboard/design/pages.py, or the preview pages.md.
 
 This file and figures/ stay in OneDrive only (gitignored), so naming holdings is fine here.
 
