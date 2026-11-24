@@ -1,6 +1,8 @@
 ﻿# Data and results stay in OneDrive, not GitHub
 data/
 results/
+# ...except thematic pieces' results (derived tables, no raw Bloomberg pulls)
+!reports/thematic/*/results/
 # Risk dashboard outputs contain holdings (commentary.md and design/preview/ are committed)
 reports/dashboard/report_*/*.pdf
 reports/dashboard/report_*/*.html

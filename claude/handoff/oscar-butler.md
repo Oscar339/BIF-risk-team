@@ -63,6 +63,12 @@
   Old static mockups: `dashboard testing/mockups/risk_dashboard_mockup.html`.
 
 ## Done
+- 2026-11-24 (mac, cloud session) Filing for report 0's thematic piece: `reports/thematic/ai-supply-chain/`
+  (README with agreed method, `basket.csv`, one shared `draft.md` for sections 1-2, `code/`, `figures/`,
+  `results/`, `drafts/team-1|2/`, `planning/team_todo_lists.md`). Repo to be private (Oscar to switch in
+  GitHub settings); drafts, planning and thematic results now committed, `data/` (raw Bloomberg) still
+  gitignored. OneDrive folder renamed `BIF` -> `BIF-risk-team-git`; shared data folder
+  `BIF-risk-team-shared-data` created next to it (Oscar to share it with the team).
 - 2026-11-07 (mac) Free risk pages: the report PDF is now R1 dashboard + R2, R3, ... from `report_XX/pages.md`
   (Markdown-like: tiles, cols, text2, boxes, tables, figures from `report_XX/figures/`). Oscar wants full
   flexibility each month (stress tests, modelling, advice, thematic, risk view of events; not IR's market

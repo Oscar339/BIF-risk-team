@@ -1,0 +1,43 @@
+ticker,name,layer,side,notes
+NVDA,Nvidia,Chip design,supplier,
+AMD,AMD,Chip design,supplier,
+AVGO,Broadcom,Chip design,supplier,
+TSM,TSMC,Foundry,supplier,
+MU,Micron,Memory,supplier,
+ASML,ASML,Equipment,supplier,
+AMAT,Applied Materials,Equipment,supplier,
+LRCX,Lam Research,Equipment,supplier,
+ANET,Arista Networks,Networking,supplier,
+MRVL,Marvell,Networking,supplier,
+VRT,Vertiv,Power and cooling,supplier,
+ETN,Eaton,Power and cooling,supplier,
+EQIX,Equinix,Data centre operators,supplier,
+DLR,Digital Realty,Data centre operators,supplier,
+MSFT,Microsoft,Hyperscalers,hyperscaler,
+AMZN,Amazon,Hyperscalers,hyperscaler,
+GOOGL,Alphabet,Hyperscalers,hyperscaler,
+META,Meta,Hyperscalers,hyperscaler,
+ORCL,Oracle,Hyperscalers,hyperscaler,
+000660.KS,SK Hynix,Memory,supplier,weekly analysis only (time-zone mismatch)
+005930.KS,Samsung Electronics,Memory,supplier,weekly analysis only (time-zone mismatch)
+SU.PA,Schneider Electric,Power and cooling,supplier,weekly analysis only (time-zone mismatch)
+JNJ,Johnson & Johnson,,control,secondary check; main benchmark is S&P 500 ex-AI
+PG,Procter & Gamble,,control,secondary check; main benchmark is S&P 500 ex-AI
+KO,Coca-Cola,,control,secondary check; main benchmark is S&P 500 ex-AI
+PEP,PepsiCo,,control,secondary check; main benchmark is S&P 500 ex-AI
+WMT,Walmart,,control,secondary check; main benchmark is S&P 500 ex-AI
+COST,Costco,,control,secondary check; main benchmark is S&P 500 ex-AI
+JPM,JPMorgan,,control,secondary check; main benchmark is S&P 500 ex-AI
+BAC,Bank of America,,control,secondary check; main benchmark is S&P 500 ex-AI
+XOM,Exxon Mobil,,control,secondary check; main benchmark is S&P 500 ex-AI
+CVX,Chevron,,control,secondary check; main benchmark is S&P 500 ex-AI
+UNH,UnitedHealth,,control,secondary check; main benchmark is S&P 500 ex-AI
+LLY,Eli Lilly,,control,secondary check; main benchmark is S&P 500 ex-AI
+MRK,Merck,,control,secondary check; main benchmark is S&P 500 ex-AI
+HD,Home Depot,,control,secondary check; main benchmark is S&P 500 ex-AI
+MCD,McDonald's,,control,secondary check; main benchmark is S&P 500 ex-AI
+CAT,Caterpillar,,control,secondary check; main benchmark is S&P 500 ex-AI
+UNP,Union Pacific,,control,secondary check; main benchmark is S&P 500 ex-AI
+NEE,NextEra Energy,,control,secondary check; main benchmark is S&P 500 ex-AI
+LIN,Linde,,control,secondary check; main benchmark is S&P 500 ex-AI
+V,Visa,,control,secondary check; main benchmark is S&P 500 ex-AI

@@ -7,9 +7,11 @@ Working folder for the BIF risk team.
 - `reports/` finished team reports
 - `claude/` hand-over notes for Claude Code sessions (see `claude/README.md`)
 
-> **This repository is public.** Never commit holdings, prices, results, Bloomberg output,
-> passwords or API keys. `data/` and `results/` folders (anywhere in the repo) are
-> excluded by `.gitignore` and stay in OneDrive only.
+> **This repository is private** (team collaborators only). Never commit passwords or API keys.
+> Raw Bloomberg output (`data/` folders, price and holdings pulls) stays out of git, in OneDrive
+> only, because Bloomberg's licence limits redistribution. Report drafts, planning notes and the
+> thematic pieces' `results/` are committed; other `results/` folders are still gitignored
+> because they contain Bloomberg prices and holdings.
 
 ## Getting a copy
 
@@ -19,17 +21,26 @@ university machines that have the Bloomberg Terminal.
 Windows (university machine):
 ```
 cd "%OneDrive%\Documents"
-git clone https://github.com/Oscar339/BIF-risk-team.git BIF
+git clone https://github.com/Oscar339/BIF-risk-team.git BIF-risk-team-git
 ```
 
 Mac:
 ```
 cd ~/Library/CloudStorage/OneDrive-UniversityofBristol/Documents
-git clone https://github.com/Oscar339/BIF-risk-team.git BIF
+git clone https://github.com/Oscar339/BIF-risk-team.git BIF-risk-team-git
 ```
 
-The first `git push` opens a browser window to log in to GitHub. You need to have
-accepted the collaborator invite first.
+The folder name `BIF-risk-team-git` marks it as the git copy; shared data lives elsewhere
+(see below). The repo is private, so the first `git clone` or `git push`
+opens a browser window to log in to GitHub. You need to have accepted the collaborator invite first.
+
+## Shared data folder
+
+Raw Bloomberg pulls can't go in git (licence), so the team shares them through a separate
+OneDrive folder, **`BIF-risk-team-shared-data`**, shared by Oscar. Open the share link and choose
+"Add shortcut to My files" so it appears in your own OneDrive. Layout: one folder per piece
+(`ai-supply-chain/`, ...), each with `bloomberg/` (raw pulls, dated file names) and a `README.md`
+saying who pulled what and when. Scripts read from it by path; never copy its contents into the repo.
 
 ## Python setup
 

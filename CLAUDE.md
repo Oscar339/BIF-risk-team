@@ -9,11 +9,13 @@ Shared by every team member who uses Claude Code. Personal instructions go in
 - Layout: `members/<first-last>/` personal work, `infrastructure/` shared code,
   `reports/` finished write-ups, `claude/` hand-over notes between sessions.
 - The repo lives in each person's University OneDrive and is also on GitHub
-  (https://github.com/Oscar339/BIF-risk-team, **public**).
+  (https://github.com/Oscar339/BIF-risk-team, **private**, team collaborators only).
 
 ## Rules
-- **Never commit data**: no holdings, prices, results, Bloomberg output, credentials.
-  `data/` and `results/` are gitignored; keep outputs there.
+- **Never commit credentials or raw Bloomberg output** (Bloomberg's licence limits
+  redistribution). `data/` folders are gitignored and stay in OneDrive. Thematic pieces'
+  `results/`, `drafts/` and `planning/` are committed; other `results/` folders are still
+  gitignored because they hold Bloomberg prices and holdings.
 - Only edit the current user's own `members/` folder unless asked. Ask before changing
   `infrastructure/` or another member's folder.
 - `main` is protected against force-push and deletion. Never rewrite pushed history.

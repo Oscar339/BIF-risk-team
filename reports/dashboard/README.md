@@ -113,8 +113,8 @@ If the PDF doesn't update, close it in your PDF viewer first.
 
 ### 4. Save the record
 
-Commit `commentary.md` (it is public on GitHub, so **no holdings, position sizes, NAV or £
-figures** in it). The data and PDF stay in OneDrive only and are gitignored.
+Commit `commentary.md` (keep **holdings, position sizes, NAV and £ figures** out of it; they
+belong in the data). The data and PDF stay in OneDrive only and are gitignored.
 
 ## Arrows on the headline tiles
 

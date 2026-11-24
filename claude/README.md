@@ -22,8 +22,9 @@ Each person has one file: `handoff/<first-last>.md`. Only that person's sessions
 2. Commit the hand-over file with the code changes, then `git push`.
 
 ## Rules
-- **The repo is public.** Describe results ("v2 run OK, 3 warnings, see results/v2/20261106"),
-  never paste holdings, prices, P&L or position sizes. The numbers stay in `results/` on OneDrive.
+- **Keep numbers out of hand-over notes.** The repo is private, but describe results ("v2 run OK,
+  3 warnings, see results/v2/20261106") rather than pasting holdings, prices, P&L or position
+  sizes. The numbers stay in `results/`.
 - Date every entry (YYYY-MM-DD) and say which machine wrote it.
 - Keep it short. This is a to-do list, not a log.
 
