@@ -1,5 +1,7 @@
 # T2-B: Shock frequency and events (Team 2)
 
+If this list and [the team to-do lists](../../planning/team_todo_lists.md) ever differ, the to-do lists win.
+
 **Feeds:** `report.md` section 2.3 (counts, events). **Needs:** T2-A.
 **Outputs:** tables (CSV) in this folder, charts in `../../figures/` (`fig_2_3_*.png`).
 

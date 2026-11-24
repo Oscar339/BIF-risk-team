@@ -1,5 +1,7 @@
 # T2-C: What shocks do to diversification, and why (Team 2)
 
+If this list and [the team to-do lists](../../planning/team_todo_lists.md) ever differ, the to-do lists win.
+
 **Feeds:** `report.md` sections 2.4 and 2.5. **Needs:** T2-A.
 **Outputs:** tables (CSV) in this folder, charts in `../../figures/` (`fig_2_4_*.png`).
 

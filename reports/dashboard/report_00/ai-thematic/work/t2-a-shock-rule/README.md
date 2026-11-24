@@ -1,5 +1,7 @@
 # T2-A: Shock rule (Team 2)
 
+If this list and [the team to-do lists](../../planning/team_todo_lists.md) ever differ, the to-do lists win.
+
 **Feeds:** `report.md` section 2.3 (definition) and 2.6. **Needs:** T1-A done.
 **Code:** `../../code/shocks.py`. **Outputs:** shock list and episode tables (CSV) in this folder.
 

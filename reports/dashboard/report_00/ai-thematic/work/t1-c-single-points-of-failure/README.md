@@ -1,5 +1,7 @@
 # T1-C: Single points of failure and benchmark exposure (Team 1)
 
+If this list and [the team to-do lists](../../planning/team_todo_lists.md) ever differ, the to-do lists win.
+
 **Feeds:** `report.md` sections 1.3 and 1.4. **Outputs:** summary tables (CSV) in this folder; raw
 SPLC exports in the shared OneDrive `bloomberg/` folder only.
 

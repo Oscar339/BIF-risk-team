@@ -1,5 +1,7 @@
 # T1-D: Context sections (Team 1)
 
+If this list and [the team to-do lists](../../planning/team_todo_lists.md) ever differ, the to-do lists win.
+
 **Feeds:** `report.md` sections 1.1, 1.2 and 1.5. **Inputs:** `../../basket.csv`, the 23 Nov drafts in
 `../../drafts/team-1/`. **Outputs:** text in `report.md`, charts in `../../figures/` (`fig_1_*.png`).
 

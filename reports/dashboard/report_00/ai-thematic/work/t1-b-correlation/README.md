@@ -1,5 +1,7 @@
 # T1-B: Correlation (Team 1)
 
+If this list and [the team to-do lists](../../planning/team_todo_lists.md) ever differ, the to-do lists win.
+
 **Feeds:** `report.md` sections 2.1 and 2.2. **Needs:** T1-A done.
 **Code:** `../../code/basket_correlations.py` (from `team1_backing_calcs.py`).
 **Outputs:** tables (CSV) in this folder; charts in `../../figures/` (`fig_2_1_*.png`, `fig_2_2_*.png`).

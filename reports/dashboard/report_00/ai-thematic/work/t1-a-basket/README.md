@@ -1,5 +1,7 @@
 # T1-A: Final basket and benchmark (Team 1, do first)
 
+If this list and [the team to-do lists](../../planning/team_todo_lists.md) ever differ, the to-do lists win.
+
 **Feeds:** every section; Team 2 waits for this. **Outputs:** `../../basket.csv`, `../../benchmark.csv`.
 
 - [ ] In `basket.csv`, check `side`: 14-name supply chain (`supplier`) and 5-name demand (`hyperscaler`) basket.
