@@ -4,15 +4,15 @@ Working folder for the BIF risk team.
 
 - `members/<first-last>/` each person's individual research space (`code/`, `notebooks/`, `data/`, `results/`)
 - `infrastructure/` shared code, utilities and setup used by everyone
-- `reports/` finished team reports
+- `reports/` team reports. **Working on report 0? Start at [`reports/dashboard/report_00/README.md`](reports/dashboard/report_00/README.md).**
 - `claude/` hand-over notes for Claude Code sessions (see `claude/README.md`)
 
 > **This repository is currently public** (it is meant to become private). Until then, treat
 > every commit as public: no holdings, NAV or position sizes. Never commit passwords or API keys.
 > Raw Bloomberg output (`data/` folders, price and holdings pulls) stays out of git, in OneDrive
-> only, because Bloomberg's licence limits redistribution. Report drafts, planning notes and the
-> thematic pieces' `results/` are committed; other `results/` folders are still gitignored
-> because they contain Bloomberg prices and holdings.
+> only, because Bloomberg's licence limits redistribution. Report drafts, planning notes and
+> derived tables are committed; `results/` folders are still gitignored because they contain
+> Bloomberg prices and holdings.
 
 ## Getting a copy
 

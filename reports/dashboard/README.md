@@ -146,6 +146,9 @@ reports/dashboard/
     bloomberg.py        Bloomberg API client
     preview/            demo pages with invented data (pages.md = worked example)
   report_00/            one folder per publication
+    README.md           start here: who does what for this report (committed)
+    report.md           the whole report in one working draft, all sections (committed)
+    ai-thematic/        work behind a thematic piece: basket, code, task folders (committed)
     commentary.md       <- you write here: dashboard text (committed)
     pages.md            <- you write here: free pages R2+ (OneDrive only)
     figures/            charts for pages.md (OneDrive only)

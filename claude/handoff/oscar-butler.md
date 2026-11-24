@@ -63,6 +63,10 @@
   Old static mockups: `dashboard testing/mockups/risk_dashboard_mockup.html`.
 
 ## Done
+- 2026-11-24 (cloud session) Everything for report 0 now lives in `reports/dashboard/report_00/`:
+  `README.md` (start here), `report.md` (whole report, one working draft), `ai-thematic/` (method README,
+  basket, code, figures, `work/<task>/` folder per task with instructions, drafts, planning). Replaces
+  `reports/thematic/`. Repo is still public; raw Bloomberg goes in OneDrive `BIF-risk-team-shared-data/`.
 - 2026-11-24 (mac, cloud session) Filing for report 0's thematic piece: `reports/thematic/ai-supply-chain/`
   (README with agreed method, `basket.csv`, one shared `draft.md` for sections 1-2, `code/`, `figures/`,
   `results/`, `drafts/team-1|2/`, `planning/team_todo_lists.md`). Repo to be private (Oscar to switch in
